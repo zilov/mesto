@@ -1,0 +1,16 @@
+.profile__edit-btn {
+  grid-row: 1;
+  grid-column: 2;
+
+  padding: 0;
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  background-color: black;
+  border: 1px solid white;
+
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+}
