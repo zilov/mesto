@@ -9,3 +9,10 @@
   line-height: 17px;
   text-align: center;
 }
+
+@media screen and (min-width: 1024px) {
+  .profile__status {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

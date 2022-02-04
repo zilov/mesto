@@ -2,3 +2,10 @@
   width: 7.5px;
   height: 7.5px;
 }
+
+@media screen and (min-width: 1024px) {
+  .profile__edit-btn-icon {
+    width: 10px;
+    height: 10px;
+  }
+}

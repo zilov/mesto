@@ -2,20 +2,18 @@
   display: grid;
   word-wrap: normal;
   grid-template-columns: auto 18px;
+  grid-template-rows: 27px 14px;
 
   grid-column-gap: 10px;
   grid-row-gap: 14px;
 }
 
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .profile__name-status-box {
-    display: grid;
-    grid-template-columns: minmax(auto, 350px), 24px;
+    grid-template-columns: auto 24px;
     grid-template-rows: 39px 18px;
-
     grid-column-gap: 18px;
-  grid-row-gap: 16px;
+    grid-row-gap: 16px;
   }
-  
 }
