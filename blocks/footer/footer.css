@@ -1,21 +1,4 @@
 .footer {
-
-}
-
-
-@media screen and (min-width: 768px) {
-  .footer {
-  } 
-}
-
-
-@media screen and (min-width: 1024px) {
-  .footer {
-  } 
-}
-
-
-@media screen and (min-width: 1280px) {
-  .footer {
-  } 
+  display: flex;
+  margin: 0;
 }
