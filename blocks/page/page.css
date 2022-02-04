@@ -1,23 +1,26 @@
 .page {
-  max-width: 880px;
-  margin: 0 auto 60px;
+  min-width: 320px;
+  margin: 0 auto 36px;
   color: white;
+
+  display: flex;
+  flex-direction: column;
 
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .page {
-    max-width: 680px;
+    min-width: 680px;
   } 
 }
 
 
-@media screen and (max-width: 425px) {
+@media screen and (min-width: 1024px) {
   .page {
-    max-width: 320px;
-    margin-bottom: 36px;
+    min-width: 880px;
+    margin-bottom: 60px;
   } 
 }
