@@ -1,0 +1,24 @@
+.edit-popup__exit-btn {
+  display: flex;
+  align-self: flex-end;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  margin-bottom: 16px;
+
+  border: none;
+
+  background: url('../../../images/close-popup-icon.svg') no-repeat;
+  background-size: 20px 20px;
+  background-position: center;
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .edit-popup__exit-btn {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 8px;
+      margin-right: -40px;
+      background-size: 32px 32px;
+    }
+  }

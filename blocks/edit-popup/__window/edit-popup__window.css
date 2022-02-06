@@ -1,0 +1,19 @@
+.edit-popup__window {
+  display: flex;
+  flex-direction: column;
+
+  width: 282px;
+  height: 322px;
+
+  background-color: #FFF;
+  color: #000;
+  border-radius: 10px;
+}
+
+@media screen and (min-width: 1024px) {
+  .edit-popup__window {
+    width: 430px;
+    height: 330px;
+  }
+  
+}
