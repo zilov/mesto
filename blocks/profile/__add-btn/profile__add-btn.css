@@ -6,9 +6,8 @@
   background-color: black;
   border: 2px solid white;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: url('../../../images/edit_button_icon.svg') 16px 16px no-repeat; 
+  background-position: center;
 }
 
 @media screen and (min-width: 1024px) {
@@ -16,5 +15,7 @@
     width: 150px;
     margin: 0;
     margin-left: 244px;
+
+    background-size: 24px 24px;
   }
 }
