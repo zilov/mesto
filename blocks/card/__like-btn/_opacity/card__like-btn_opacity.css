@@ -1,0 +1,8 @@
+.card__like-btn_opacity {
+  opacity: 1;
+  transition: opacity 0.25s linear;
+}
+
+.card__like-btn_opacity:hover {
+  opacity: 0.5;
+}
