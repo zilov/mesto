@@ -35,6 +35,7 @@ function closePopupByBgClick(event) {
 
 
 editProfileBtn.addEventListener('click', openPopup);
+console.log(editProfileBtn);
 editPopupCloseBtn.addEventListener('click', closePopup);
 editPopupElement.addEventListener('click', closePopupByBgClick);
 
@@ -55,3 +56,12 @@ function changeProfileInfo() {
 
 
 const editPopupSaveBtnClick = editPopupElement.querySelector('.edit-popup__save-btn').addEventListener('click', changeProfileInfo);
+
+const likeBtnElArray = document.getElementsByClassName('card__like-btn');
+console.log(likeBtnElArray);
+
+for (let i = 0; i < likeBtnElArray.length; i++) {
+    likeBtnElArray[i].addEventListener('click', function(){
+        likeBtnElArray[i].classList.toggle('card__like-btn_active');
+    })
+}
