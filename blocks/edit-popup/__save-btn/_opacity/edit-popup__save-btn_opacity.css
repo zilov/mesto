@@ -1,0 +1,8 @@
+.edit-popup__save-btn_opacity {
+  opacity: 1;
+  transition: opacity 0.25s linear;
+}
+
+.edit-popup__save-btn_opacity:hover {
+  opacity: 0.8;
+}

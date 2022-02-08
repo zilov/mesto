@@ -25,6 +25,7 @@
 @import url("../blocks/edit-popup/__input-name/edit-popup__input-name.css");
 @import url("../blocks/edit-popup/__input-status/edit-popup__input-status.css");
 @import url("../blocks/edit-popup/__save-btn/edit-popup__save-btn.css");
+@import url("../blocks/edit-popup/__save-btn/_opacity/edit-popup__save-btn_opacity.css");
 
 @import url("../blocks/mesto-cards/mesto-cards.css");
 @import url("../blocks/card/card.css");
