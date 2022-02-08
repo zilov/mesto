@@ -22,6 +22,7 @@
 @import url("../blocks/edit-popup/__container/edit-popup__container.css");
 @import url("../blocks/edit-popup/__window/edit-popup__window.css");
 @import url("../blocks/edit-popup/__exit-btn/edit-popup__exit-btn.css");
+@import url("../blocks/edit-popup/__exit-btn/_opacity/edit-popup__exit-btn_opacity.css");
 @import url("../blocks/edit-popup/__tltle/edit-popup__title.css");
 @import url("../blocks/edit-popup/__input-name/edit-popup__input-name.css");
 @import url("../blocks/edit-popup/__input-status/edit-popup__input-status.css");
