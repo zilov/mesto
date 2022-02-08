@@ -9,7 +9,7 @@
   background-color: black;
   border: 1px solid white;
 
-  background: url('../../../images/edit_button_icon.svg') 7.5px 7.5px no-repeat; 
+  background: url("../../../images/edit_button_icon.svg") 7.5px 7.5px no-repeat;
   background-position: center;
 }
 
