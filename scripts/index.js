@@ -57,10 +57,6 @@ function changeProfileInfo() {
 
 const editPopupSaveBtnClick = editPopupElement.querySelector('.edit-popup__save-btn').addEventListener('click', changeProfileInfo);
 
-
-const likeBtnElements = document.querySelectorAll('.card__like-btn');
-console.log(likeBtnElements);
-
 const likeBtnElArray = document.getElementsByClassName('card__like-btn');
 console.log(likeBtnElArray);
 
