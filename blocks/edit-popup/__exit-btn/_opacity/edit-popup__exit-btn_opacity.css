@@ -3,6 +3,6 @@
   transition: opacity 0.25s linear;
 }
 
-.edit-popup__exit-btn_opacity {
+.edit-popup__exit-btn_opacity:hover {
   opacity: 0.6;
 }
