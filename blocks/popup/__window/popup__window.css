@@ -1,4 +1,4 @@
-.edit-popup__window {
+.popup__window {
   display: flex;
   flex-direction: column;
 
@@ -11,7 +11,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .edit-popup__window {
+  .popup__window {
     width: 430px;
     height: 330px;
   }

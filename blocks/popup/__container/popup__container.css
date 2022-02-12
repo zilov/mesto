@@ -1,4 +1,4 @@
-.edit-popup__container {
+.popup__container {
   display: flex;
   flex-direction: column;
 }

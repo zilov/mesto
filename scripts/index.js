@@ -1,15 +1,15 @@
 const editProfileBtn = document.querySelector('.profile__edit-btn');
-const editPopupElement = document.querySelector(".edit-popup");
-const editPopupCloseBtn = editPopupElement.querySelector('.edit-popup__exit-btn');
+const popupElement = document.querySelector(".popup");
+const popupCloseBtn = popupElement.querySelector('.popup__exit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
-const editPopupInputName = editPopupElement.querySelector('.edit-popup__input-name');
-const editPopupInputStatus = editPopupElement.querySelector('.edit-popup__input-status');
+const popupInputName = popupElement.querySelector('.popup__input-name');
+const popupInputStatus = popupElement.querySelector('.popup__input-status');
 
 function setInputValues() {
     console.log(profileName.innerText)
-    editPopupInputName.setAttribute('value', profileName.innerText);
-    editPopupInputStatus.setAttribute('value', profileStatus.innerText);
+    popupInputName.setAttribute('value', profileName.innerText);
+    popupInputStatus.setAttribute('value', profileStatus.innerText);
 };
 
 
@@ -17,12 +17,12 @@ setInputValues();
 
 
 function openPopup() {
-    editPopupElement.classList.add('edit-popup__active');
+    popupElement.classList.add('popup__active');
 }
 
 
 function closePopup() {
-    editPopupElement.classList.remove('edit-popup__active');
+    popupElement.classList.remove('popup__active');
 }
 
 
@@ -36,18 +36,18 @@ function closePopupByBgClick(event) {
 
 editProfileBtn.addEventListener('click', openPopup);
 console.log(editProfileBtn);
-editPopupCloseBtn.addEventListener('click', closePopup);
-editPopupElement.addEventListener('click', closePopupByBgClick);
+popupCloseBtn.addEventListener('click', closePopup);
+popupElement.addEventListener('click', closePopupByBgClick);
 
 
 function changeProfileInfo() {
-    console.log(profileName, editPopupInputName.value);
-    if (editPopupInputName.value !== profileName.innerText) {
-        profileName.innerText = editPopupInputName.value;
+    console.log(profileName, popupInputName.value);
+    if (popupInputName.value !== profileName.innerText) {
+        profileName.innerText = popupInputName.value;
     };
 
-    if (editPopupInputStatus.value !== profileStatus.innerText) {
-        profileStatus.innerText = editPopupInputStatus.value;
+    if (popupInputStatus.value !== profileStatus.innerText) {
+        profileStatus.innerText = popupInputStatus.value;
     };
 
     setInputValues();
@@ -55,7 +55,7 @@ function changeProfileInfo() {
 };
 
 
-const editPopupSaveBtnClick = editPopupElement.querySelector('.edit-popup__save-btn').addEventListener('click', changeProfileInfo);
+const popupSaveBtnClick = popupElement.querySelector('.popup__save-btn').addEventListener('click', changeProfileInfo);
 
 const likeBtnElArray = document.getElementsByClassName('card__like-btn');
 console.log(likeBtnElArray);

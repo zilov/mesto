@@ -14,15 +14,15 @@
 @import url("../blocks/profile/__edit-btn/profile__edit-btn.css");
 @import url("../blocks/profile/__add-btn/profile__add-btn.css");
 
-@import url("../blocks/edit-popup/edit-popup.css");
-@import url("../blocks/edit-popup/__active/edit-popup__active.css");
-@import url("../blocks/edit-popup/__container/edit-popup__container.css");
-@import url("../blocks/edit-popup/__window/edit-popup__window.css");
-@import url("../blocks/edit-popup/__exit-btn/edit-popup__exit-btn.css");
-@import url("../blocks/edit-popup/__tltle/edit-popup__title.css");
-@import url("../blocks/edit-popup/__input-name/edit-popup__input-name.css");
-@import url("../blocks/edit-popup/__input-status/edit-popup__input-status.css");
-@import url("../blocks/edit-popup/__save-btn/edit-popup__save-btn.css");
+@import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/__active/popup__active.css");
+@import url("../blocks/popup/__container/popup__container.css");
+@import url("../blocks/popup/__window/popup__window.css");
+@import url("../blocks/popup/__exit-btn/popup__exit-btn.css");
+@import url("../blocks/popup/__tltle/popup__title.css");
+@import url("../blocks/popup/__input-name/popup__input-name.css");
+@import url("../blocks/popup/__input-status/popup__input-status.css");
+@import url("../blocks/popup/__save-btn/popup__save-btn.css");
 
 @import url("../blocks/mesto-cards/mesto-cards.css");
 @import url("../blocks/card/card.css");

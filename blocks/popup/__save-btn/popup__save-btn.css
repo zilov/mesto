@@ -1,4 +1,4 @@
-.edit-popup__save-btn {
+.popup__save-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,12 +14,12 @@
   transition: opacity 0.25s linear;
 }
 
-.edit-popup__save-btn:hover {
+.popup__save-btn:hover {
   opacity: 0.8;
 }
 
 @media screen and (min-width: 1024px) {
-  .edit-popup__save-btn {
+  .popup__save-btn {
     margin-bottom: 37px;
     width: 358px;
     height: 50px;

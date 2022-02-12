@@ -1,4 +1,4 @@
-.edit-popup__title {
+.popup__title {
   display: flex;
   width: 238px;
   margin: 25px auto 75px;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .edit-popup__title {
+  .popup__title {
     width: 330px;
     margin: 34px 0 54px;
     margin-left: 36px;

@@ -1,4 +1,4 @@
-.edit-popup__exit-btn {
+.popup__exit-btn {
   display: flex;
   align-self: flex-end;
   padding: 0;
@@ -16,12 +16,12 @@
   transition: opacity 0.25s linear;
   }
 
-.edit-popup__exit-btn:hover {
+.popup__exit-btn:hover {
   opacity: 0.6;
 }
   
   @media screen and (min-width: 1024px) {
-    .edit-popup__exit-btn {
+    .popup__exit-btn {
       width: 32px;
       height: 32px;
       margin-bottom: 8px;
