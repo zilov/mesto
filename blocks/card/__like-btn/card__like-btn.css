@@ -4,6 +4,9 @@
   width: 22px;
   height: 19px;
 
+  opacity: 1;
+  transition: opacity 0.25s linear;
+
   background-color: white;
   border: none;
 
@@ -15,4 +18,8 @@
   background-repeat: no-repeat;
   background-size: 22px 19px;
   background-position: center;
+}
+
+.card__like-btn:hover {
+  opacity: 0.5;
 }

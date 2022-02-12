@@ -2,7 +2,6 @@
 @import url("../fonts/inter.css");
 @import url("../blocks/body/body.css");
 @import url("../blocks/page/page.css");
-@import url("../blocks/btn-opacity/btn-opacity.css");
 
 @import url("../blocks/header/header.css");
 @import url("../blocks/header/__logo/header__logo.css");
@@ -14,20 +13,16 @@
 @import url("../blocks/profile/__status/profile__status.css");
 @import url("../blocks/profile/__edit-btn/profile__edit-btn.css");
 @import url("../blocks/profile/__add-btn/profile__add-btn.css");
-@import url("../blocks/profile/__edit-btn/_opacitty/profile__edit-btn_opacity.css");
-@import url("../blocks/profile/__add-btn/_opacity/profile__add-btn_opacity.css");
 
 @import url("../blocks/edit-popup/edit-popup.css");
 @import url("../blocks/edit-popup/__active/edit-popup__active.css");
 @import url("../blocks/edit-popup/__container/edit-popup__container.css");
 @import url("../blocks/edit-popup/__window/edit-popup__window.css");
 @import url("../blocks/edit-popup/__exit-btn/edit-popup__exit-btn.css");
-@import url("../blocks/edit-popup/__exit-btn/_opacity/edit-popup__exit-btn_opacity.css");
 @import url("../blocks/edit-popup/__tltle/edit-popup__title.css");
 @import url("../blocks/edit-popup/__input-name/edit-popup__input-name.css");
 @import url("../blocks/edit-popup/__input-status/edit-popup__input-status.css");
 @import url("../blocks/edit-popup/__save-btn/edit-popup__save-btn.css");
-@import url("../blocks/edit-popup/__save-btn/_opacity/edit-popup__save-btn_opacity.css");
 
 @import url("../blocks/mesto-cards/mesto-cards.css");
 @import url("../blocks/card/card.css");
@@ -36,7 +31,6 @@
 @import url("../blocks/card/__title/card__title.css");
 @import url("../blocks/card/__like-btn/card__like-btn.css");
 @import url("../blocks/card/__like-btn/_active/card__like-btn_active.css");
-@import url("../blocks/card/__like-btn/_opacity/card__like-btn_opacity.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");

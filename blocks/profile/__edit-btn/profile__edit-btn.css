@@ -11,6 +11,13 @@
 
   background: url("../../../images/edit_button_icon.svg") 7.5px 7.5px no-repeat;
   background-position: center;
+
+  opacity: 1;
+  transition: opacity 0.25s linear;
+}
+
+.profile__edit-btn:hover {
+  opacity: 0.6;
 }
 
 @media screen and (min-width: 1024px) {

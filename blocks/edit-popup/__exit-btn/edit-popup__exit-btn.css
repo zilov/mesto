@@ -11,7 +11,14 @@
   background: url('../../../images/close-popup-icon.svg') no-repeat;
   background-size: 20px 20px;
   background-position: center;
+
+  opacity: 1;
+  transition: opacity 0.25s linear;
   }
+
+.edit-popup__exit-btn:hover {
+  opacity: 0.6;
+}
   
   @media screen and (min-width: 1024px) {
     .edit-popup__exit-btn {
