@@ -3,8 +3,8 @@ const popupElement = document.querySelector('.popup');
 const popupCloseBtn = popupElement.querySelector('.popup__exit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
-const popupInputName = popupElement.querySelector('.popup__input-name');
-const popupInputStatus = popupElement.querySelector('.popup__input-status');
+const popupInputName = popupElement.querySelector('input[name="profile-name"]');
+const popupInputStatus = popupElement.querySelector('input[name="profile-status"]');
 
 function setInputValues() {
     popupInputName.value = profileName.textContent;
@@ -13,12 +13,12 @@ function setInputValues() {
 
 function openPopup() {
     setInputValues();
-    popupElement.classList.add('popup__active');
+    popupElement.classList.add('popup_active');
 }
 
 
 function closePopup() {
-    popupElement.classList.remove('popup__active');
+    popupElement.classList.remove('popup_active');
 }
 
 
