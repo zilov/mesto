@@ -1,5 +1,5 @@
 const editProfileBtn = document.querySelector('.profile__edit-btn');
-const popupElement = document.querySelector(".popup");
+const popupElement = document.querySelector('.popup');
 const popupCloseBtn = popupElement.querySelector('.popup__exit-btn');
 const profileName = document.querySelector('.profile__name');
 const profileStatus = document.querySelector('.profile__status');
@@ -7,16 +7,12 @@ const popupInputName = popupElement.querySelector('.popup__input-name');
 const popupInputStatus = popupElement.querySelector('.popup__input-status');
 
 function setInputValues() {
-    console.log(profileName.innerText)
-    popupInputName.setAttribute('value', profileName.innerText);
-    popupInputStatus.setAttribute('value', profileStatus.innerText);
+    popupInputName.value = profileName.textContent;
+    popupInputStatus.value = profileStatus.textContent;
 };
 
-
-setInputValues();
-
-
 function openPopup() {
+    setInputValues();
     popupElement.classList.add('popup__active');
 }
 
@@ -26,42 +22,22 @@ function closePopup() {
 }
 
 
-function closePopupByBgClick(event) {
-    if (event.target !== event.currentTarget) {
-        return;
-    }
-    closePopup();
-};
-
-
-editProfileBtn.addEventListener('click', openPopup);
-console.log(editProfileBtn);
-popupCloseBtn.addEventListener('click', closePopup);
-popupElement.addEventListener('click', closePopupByBgClick);
+// function closePopupByBgClick(event) {
+//     if (event.target !== event.currentTarget) {
+//         return;
+//     }
+//     closePopup();
+// };
+// popupElement.addEventListener('click', closePopupByBgClick);
 
 
 function changeProfileInfo() {
-    console.log(profileName, popupInputName.value);
-    if (popupInputName.value !== profileName.innerText) {
-        profileName.innerText = popupInputName.value;
-    };
+    profileName.textContent = popupInputName.value;
+    profileStatus.textContent = popupInputStatus.value;
 
-    if (popupInputStatus.value !== profileStatus.innerText) {
-        profileStatus.innerText = popupInputStatus.value;
-    };
-
-    setInputValues();
-    return closePopup();
+    closePopup();
 };
 
-
-const popupSaveBtnClick = popupElement.querySelector('.popup__save-btn').addEventListener('click', changeProfileInfo);
-
-const likeBtnElArray = document.getElementsByClassName('card__like-btn');
-console.log(likeBtnElArray);
-
-for (let i = 0; i < likeBtnElArray.length; i++) {
-    likeBtnElArray[i].addEventListener('click', function(){
-        likeBtnElArray[i].classList.toggle('card__like-btn_active');
-    })
-}
+editProfileBtn.addEventListener('click', openPopup);
+popupCloseBtn.addEventListener('click', closePopup);
+popupElement.querySelector('form[name="form-edit-profile-info"]').addEventListener('submit', changeProfileInfo);
