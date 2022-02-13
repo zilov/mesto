@@ -4,7 +4,7 @@
   align-items: center;
 
   width: 282px;
-  height: 361px;
+  min-height: 361px;
 
   background-color: white;
   color: black;
