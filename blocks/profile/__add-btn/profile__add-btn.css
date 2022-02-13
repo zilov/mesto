@@ -6,8 +6,11 @@
   background-color: black;
   border: 2px solid white;
 
-  background: url('../../../images/add_button_icon.svg') 16px 16px no-repeat;
+  background-image: url('../../../images/add_button_icon.svg');
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 
   opacity: 1;
   transition: opacity 0.25s linear;
