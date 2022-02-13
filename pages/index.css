@@ -23,7 +23,7 @@
 @import url("../blocks/popup/__input/popup__input.css");
 @import url("../blocks/popup/__save-btn/popup__save-btn.css");
 
-@import url("../blocks/mesto-cards/mesto-cards.css");
+@import url("../blocks/cards/cards.css");
 @import url("../blocks/card/card.css");
 @import url("../blocks/card/__image/card__image.css");
 @import url("../blocks/card/__title-like-box/card__title-like-box.css");

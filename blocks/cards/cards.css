@@ -1,4 +1,4 @@
-.mesto-cards{
+.cards{
   display: grid;
   max-width: 282px;
   grid-template-columns: 282px;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .mesto-cards {
+  .cards {
     max-width: calc(282px * 2 + 17px);
     grid-template-columns: repeat(2, 282px);
     column-gap: 17px;
@@ -19,7 +19,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .mesto-cards {
+  .cards {
     max-width: calc(282px * 3 + 17px * 2);
     grid-template-columns: repeat(3, 282px);
   }
