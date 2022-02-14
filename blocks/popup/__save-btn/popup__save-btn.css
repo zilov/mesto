@@ -9,6 +9,7 @@
 
   background-color: #000;
   border: none;
+  border-radius: 2px;
 
   opacity: 1;
   transition: opacity 0.25s linear;
