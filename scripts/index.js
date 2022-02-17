@@ -61,20 +61,27 @@ function changeProfileInfo(event) {
     closePopup();
 };
 
+
 function addCard(cardTitle='Тест-лягушонок', cardImageLink='../images/card_test_image.jpg') {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
     cardElement.querySelector('.card__image').src = cardImageLink;
     cardElement.querySelector('.card__title').textContent = cardTitle;
+    
+    // add remove-btn click listener
+    cardElement.querySelector('.card__remove-btn').addEventListener('click', removeCard)
 
     cardsContainer.append(cardElement);
 }
 
+function removeCard(event) {
+    const cardElement = event.target.closest('.card');
+    cardElement.remove()
+};
 
+cardsListInitial.forEach(item => addCard(item.name, item.link));
 
 editProfileBtn.addEventListener('click', openPopup);
 popupCloseBtn.addEventListener('click', closePopup);
 popupForm.addEventListener('submit', changeProfileInfo);
-
-cardsListInitial.forEach(item => addCard(item.name, item.link));
