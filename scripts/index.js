@@ -75,6 +75,11 @@ function addCard(cardTitle='Тест-лягушонок', cardImageLink='../imag
     cardsContainer.append(cardElement);
 }
 
+
+addCard();
+addCard();
+addCard();
+
 function removeCard(event) {
     const cardElement = event.target.closest('.card');
     cardElement.remove()
