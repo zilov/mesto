@@ -33,27 +33,7 @@
           <button type="button" class="profile__add-btn"></button>
         </section>
 
-        <section class="cards">
-        </section>
-
-        <div class="popup">
-          <div class="popup__container">
-            <button type="button" class="popup__exit-btn"></button>
-            <div class="popup__window">
-              <h2 class="popup__title">Редактировать профиль</h2>
-              <form name="form-edit-profile-info">
-                <input type="text" name="profile-name" class="popup__input"/>
-                <input type="text" name="profile-status" class="popup__input"/>
-                <input
-                  type="submit"
-                  class="popup__save-btn"
-                  value="Сохранить"
-                />
-              </form>
-            </div>
-          </div>
-        </div>
-
+        <section class="cards"></section>
       </main>
 
       <footer class="footer">
@@ -66,15 +46,28 @@
     <template id="card-template">
       <article class="card">
         <button type="button" class="card__remove-btn"></button>
-        <img
-          class="card__image"
-        />
+        <img class="card__image" />
         <div class="card__title-like-box">
           <h2 class="card__title"></h2>
           <button type="button" class="card__like-btn"></button>
         </div>
       </article>
     </template>
+
+    <template id="popup-template">
+      <div class="popup">
+        <div class="popup__window">
+          <button type="button" class="popup__exit-btn"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form name="form-edit-profile-info">
+            <input type="text" name="firstInput" class="popup__input" />
+            <input type="text" name="secondInput" class="popup__input" />
+            <input type="submit" class="popup__save-btn" />
+          </form>
+        </div>
+      </div>
+    </template>
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>
