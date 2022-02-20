@@ -1,11 +1,12 @@
 .popup__window {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   width: 282px;
   min-height: 322px;
 
-  background-color: #FFF;
+  background-color: #fff;
   color: #000;
   border-radius: 10px;
 }
@@ -15,5 +16,4 @@
     width: 430px;
     min-height: 330px;
   }
-  
 }
