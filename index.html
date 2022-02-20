@@ -14,7 +14,7 @@
         <img src="./images/logo.svg" alt="лого" class="header__logo" />
       </header>
 
-      <main>
+      <main id="main">
         <section class="profile">
           <img
             src="./images/profile_photo.jpg"
@@ -59,11 +59,21 @@
         <div class="popup__window">
           <button type="button" class="popup__exit-btn"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form name="form-edit-profile-info">
-            <input type="text" name="firstInput" class="popup__input" />
-            <input type="text" name="secondInput" class="popup__input" />
+          <form id="form-edit-profile-info">
+            <input type="text" id="firstInput" class="popup__input" required />
+            <input type="text" id="secondInput" class="popup__input" required />
             <input type="submit" class="popup__save-btn" />
           </form>
+        </div>
+      </div>
+    </template>
+
+    <template id="card-popup-template">
+      <div class="popup">
+        <div class="popup__window">
+          <button type="button" class="popup__exit-btn"></button>
+          <img class="popup__image" />
+          <h3 class="popup__caption"></h3>
         </div>
       </div>
     </template>
