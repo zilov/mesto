@@ -31,20 +31,48 @@ const cardsListInitial = [
     }
   ];
 
+let cardCounter = 0
+
 
 function addCard(cardTitle='Тест-лягушонок', cardImageLink='../images/card_test_image.jpg') {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+    cardElement.id = `card_${cardCounter}`;
 
     cardElement.querySelector('.card__image').src = cardImageLink;
     cardElement.querySelector('.card__title').textContent = cardTitle;
     
     // add remove-btn click listener
     cardElement.querySelector('.card__remove-btn').addEventListener('click', removeCard);
-    cardElement.querySelector('.card__like-btn').addEventListener('click', toggleLike)
+    cardElement.querySelector('.card__like-btn').addEventListener('click', toggleLike);
+    cardElement.querySelector('.card__image').addEventListener('click', function(event) {openPopup(findCardPopupId(event))});
 
+    cardsContainer.prepend(addCardPopup(cardElement));
     cardsContainer.prepend(cardElement);
+    cardCounter += 1;
 
+}
+
+function addCardPopup(cardElement) {
+  const cardPopupTemplate = document.querySelector('#card-popup-template').content;
+  const cardPopupElement = cardPopupTemplate.querySelector('.popup').cloneNode(true);
+  const cardPopupImage = cardPopupElement.querySelector('.popup__image');
+  const cardPopupCaption = cardPopupElement.querySelector('.popup__caption');
+  const popupCloseBtn = cardPopupElement.querySelector('.popup__exit-btn');
+
+  cardPopupElement.id = `popup_${cardElement.id}`;
+  cardPopupImage.src = cardElement.querySelector('.card__image').src;
+  cardPopupCaption.textContent = cardElement.querySelector('.card__title').textContent;
+  
+  popupCloseBtn.addEventListener('click', function () {closePopup(cardPopupElement)});
+
+  return cardPopupElement;
+}
+
+function findCardPopupId(event) {
+  const cardElementId = event.target.closest('.card').id;
+  return cardsContainer.querySelector(`#popup_${cardElementId}`);
 }
 
 function removeCard(event) {
@@ -114,7 +142,6 @@ cardsListInitial.forEach(item => addCard(item.name, item.link));
 editPopupElement = addPopup('popup-edit', 'Редактировать профиль', 'Сохранить', profileName.textContent, profileStatus.textContent);
 const editPopupForm = editPopupElement.querySelector('#form-edit-profile-info');
 addCardPopupElement = addPopup('popup-add', 'Новое место', 'Создать', 'Название', 'Ссылка на картинку');
-addCardPopupElement.type = 'url';
 const addCardPopupForm = addCardPopupElement.querySelector('#form-edit-profile-info');
 
 editProfileBtn.addEventListener('click', function () {openPopup(editPopupElement)});
@@ -122,3 +149,4 @@ addCardBtn.addEventListener('click', function () {openPopup(addCardPopupElement)
 
 editPopupForm.addEventListener('submit', changeProfileInfo);
 addCardPopupForm.addEventListener('submit', submitNewCard);
+
