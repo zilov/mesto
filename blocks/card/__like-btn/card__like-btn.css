@@ -18,6 +18,8 @@
   background-repeat: no-repeat;
   background-size: 22px 19px;
   background-position: center;
+
+  cursor: pointer;
 }
 
 .card__like-btn:hover {
