@@ -1,9 +1,12 @@
 const profileElement = document.querySelector('.profile');
 const profileName = profileElement.querySelector('.profile__name');
 const profileStatus = profileElement.querySelector('.profile__status');
-const editProfileBtn = profileElement.querySelector('.profile__edit-btn');
-const addCardBtn = profileElement.querySelector('.profile__add-btn');
+const profileEditBtn = profileElement.querySelector('.profile__edit-btn');
+const cardAddBtn = profileElement.querySelector('.profile__add-btn');
+
 const cardsContainer = document.querySelector('.cards');
+const cardTemplate = document.querySelector('#card-template').content;
+
 const cardsListInitial = [
     {
       name: 'Архыз',
@@ -31,28 +34,45 @@ const cardsListInitial = [
     }
   ];
 
-let cardCounter = 0
 
+function createCard(cardTitle='Тест-лягушонок', cardImageLink='../images/card_test_image.jpg') {
+    const cardElement = cardTemplate.cloneNode(true);
 
-function addCard(cardTitle='Тест-лягушонок', cardImageLink='../images/card_test_image.jpg') {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+    const cardImageElement = cardElement.querySelector('.card__image');
+    const cardTitleElement = cardElement.querySelector('.card__title');
 
-    cardElement.id = `card_${cardCounter}`;
+    cardImageElement.src = cardImageLink;
+    cardImageElement.alt = cardTitle;
+    cardTitleElement.textContent = cardTitle;
 
-    cardElement.querySelector('.card__image').src = cardImageLink;
-    cardElement.querySelector('.card__title').textContent = cardTitle;
-    
-    // add remove-btn click listener
+    return cardElement;
+}
+
+function removeCard(event) {
+    const cardElement = event.target.closest('.card');
+    cardElement.remove()
+};
+
+function toggleLike(event) {
+  event.target.classList.toggle('card__like-btn_type_active');
+}
+
+function addCardListeners(cardElement) {
     cardElement.querySelector('.card__remove-btn').addEventListener('click', removeCard);
     cardElement.querySelector('.card__like-btn').addEventListener('click', toggleLike);
-    cardElement.querySelector('.card__image').addEventListener('click', function(event) {openPopup(findCardPopupId(event))});
-
-    cardsContainer.prepend(addCardPopup(cardElement));
-    cardsContainer.prepend(cardElement);
-    cardCounter += 1;
-
+    // cardElement.querySelector('.card__image').addEventListener('click', function(event) {openPopup(findCardPopupId(event))});
 }
+
+function renderCard(cardElement) {
+    addCardListeners(cardElement);
+    // cardsContainer.prepend(addCardPopup(cardElement));
+    cardsContainer.prepend(cardElement);
+}
+
+cardsListInitial.forEach(item => {
+    const card = createCard(item.name, item.link);
+    renderCard(card);
+});
 
 function addCardPopup(cardElement) {
   const cardPopupTemplate = document.querySelector('#card-popup-template').content;
@@ -75,14 +95,7 @@ function findCardPopupId(event) {
   return cardsContainer.querySelector(`#popup_${cardElementId}`);
 }
 
-function removeCard(event) {
-    const cardElement = event.target.closest('.card');
-    cardElement.remove()
-};
 
-function toggleLike(event) {
-  event.target.classList.toggle('card__like-btn_type_active');
-}
 
 function addPopup(id, title, submitButtonValue, firstInputPlaceholder, secondInputPlaceholder) {
   const mainElement = document.querySelector('#main');
@@ -137,16 +150,16 @@ function submitNewCard(event) {
   closePopup(addCardPopupElement);
 };
 
-cardsListInitial.forEach(item => addCard(item.name, item.link));
 
-editPopupElement = addPopup('popup-edit', 'Редактировать профиль', 'Сохранить', profileName.textContent, profileStatus.textContent);
-const editPopupForm = editPopupElement.querySelector('#form-edit-profile-info');
-addCardPopupElement = addPopup('popup-add', 'Новое место', 'Создать', 'Название', 'Ссылка на картинку');
-const addCardPopupForm = addCardPopupElement.querySelector('#form-edit-profile-info');
 
-editProfileBtn.addEventListener('click', function () {openPopup(editPopupElement)});
-addCardBtn.addEventListener('click', function () {openPopup(addCardPopupElement)});
+popupEditElement = addPopup('popup-edit', 'Редактировать профиль', 'Сохранить', profileName.textContent, profileStatus.textContent);
+const popupEditForm = editPopupElement.querySelector('#form-edit-profile-info');
+cardAddPopupElement = addPopup('popup-add', 'Новое место', 'Создать', 'Название', 'Ссылка на картинку');
+const cardAddPopupForm = addCardPopupElement.querySelector('#form-edit-profile-info');
 
-editPopupForm.addEventListener('submit', changeProfileInfo);
-addCardPopupForm.addEventListener('submit', submitNewCard);
+profileEditBtn.addEventListener('click', function () {openPopup(popupEditElement)});
+addCardBtn.addEventListener('click', function () {openPopup(cardAddPopupElement)});
+
+popupEditForm.addEventListener('submit', changeProfileInfo);
+cardAddPopupForm.addEventListener('submit', submitNewCard);
 
