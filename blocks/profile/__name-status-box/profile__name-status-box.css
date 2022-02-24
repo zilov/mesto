@@ -14,5 +14,6 @@
     grid-template-columns: auto 24px;
     grid-column-gap: 18px;
     grid-row-gap: 16px;
+    margin-left: 0;
   }
 }
