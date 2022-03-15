@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 45px auto 25px;
+  margin: 0 auto 25px;
   width: 238px;
   height: 46px;
   color: white;
@@ -25,7 +25,7 @@
 
 @media screen and (min-width: 1024px) {
   .popup__save-btn {
-    margin: 48px auto 37px;
+    margin: 0 auto 37px;
     width: 358px;
     height: 50px;
 

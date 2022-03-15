@@ -39,16 +39,24 @@
           <div class="popup__window">
             <button type="button" class="popup__exit-btn"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form id="form-edit-profile-info">
-              <input type="text" id="nameInput" class="popup__input" required />
-              <input
-                type="text"
-                id="statusInput"
-                class="popup__input"
-                required
-              />
-              <button type="submit" class="popup__save-btn">Сохранить</button>
+            <form class="form" id="form-edit-profile-info" novalidate>
+              <section class="form__section">
+                <input type="text" id="nameInput" class="form__input" minlength="2" maxlength="40" required/>
+                <span class="form__input-err" id="nameInput-Error"></span>
+              </section>
+              <section>
+                <input
+                  type="text"
+                  id="statusInput"
+                  class="form__input"
+                  minlength="2"
+                  maxlength="200"
+                  required
+                />
+                <span class="form__input-err" id="statusInput-Error"></span>
+              </section>
             </form>
+            <button type="submit" class="popup__save-btn">Сохранить</button>
           </div>
         </div>
 
@@ -56,23 +64,29 @@
           <div class="popup__window">
             <button type="button" class="popup__exit-btn"></button>
             <h2 class="popup__title">Новое место</h2>
-            <form id="form-add-new-card">
-              <input
-                type="text"
-                id="titleInput"
-                class="popup__input"
-                placeholder="Название"
-                required
-              />
-              <input
-                type="url"
-                id="imageUrlInput"
-                class="popup__input"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <button type="submit" class="popup__save-btn">Создать</button>
+            <form class="form" id="form-add-new-card" novalidate>
+              <section class="form__section">
+                <input
+                  type="text"
+                  id="titleInput"
+                  class="form__input"
+                  placeholder="Название"
+                  required
+                />
+                <span class="form__input-err" id="titleInput-Error"></span>
+              </section>
+              <section class="form__section">
+                <input
+                  type="url"
+                  id="imageUrlInput"
+                  class="form__input"
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span class="form__input-err" id="imageUrlInput-Error"></span>
+              </section>
             </form>
+            <button type="submit" class="popup__save-btn">Создать</button>
           </div>
         </div>
 
