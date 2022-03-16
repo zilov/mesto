@@ -133,6 +133,7 @@ function openPopup(popupElement) {
 
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_active");
+  popupElement.removeEventListener('keydown', )
 }
 
 function addPopupCloseListener(popupElement) {
@@ -157,6 +158,24 @@ function setEditPopupInputValues() {
   popupEditStatusInput.value = profileStatus.textContent;
 }
 
+
+
+const escCloseListener = (event) => {
+  console.log(event.key);
+  if (event.key === 'Escape') {
+
+    console.log(event.currentTarget);
+  }
+}
+
+const popupCloseByBgClick = (popupElement) => {
+  popupElement.addEventListener('click', function(event) {
+    if (event.target === event.currentTarget) {
+      closePopup(popupElement);
+    }
+  })
+}
+
 cardsListInitial.forEach((item) => {
   renderCard(createCard(item));
 });
@@ -167,14 +186,22 @@ popupList.forEach((popup) => {
 
 profileEditBtn.addEventListener("click", function () {
   setEditPopupInputValues();
+  // addEnterSubmitListener(popupEditElement);
+  popupCloseByBgClick(popupEditElement)
   openPopup(popupEditElement);
 });
 
 cardAddBtn.addEventListener("click", function () {
   clearAddPopupForm();
+  // addEscCloseListener(popupAddElement);
+  // addEnterSubmitListener(popupAddElement);
+  popupCloseByBgClick(popupAddElement)
   openPopup(popupAddElement);
 });
 
 popupEditForm.addEventListener("submit", changeProfileInfo);
 
 popupAddForm.addEventListener("submit", submitNewCard);
+
+
+profileEditBtn.addEventListener('keydown', escCloseListener);
