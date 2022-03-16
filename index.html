@@ -55,8 +55,8 @@
                 />
                 <span class="form__input-err" id="statusInput-Error"></span>
               </section>
+              <button type="submit" class="form__submit-btn">Сохранить</button>
             </form>
-            <button type="submit" class="popup__save-btn">Сохранить</button>
           </div>
         </div>
 
@@ -71,6 +71,8 @@
                   id="titleInput"
                   class="form__input"
                   placeholder="Название"
+                  minlength="2"
+                  maxlength="30"
                   required
                 />
                 <span class="form__input-err" id="titleInput-Error"></span>
@@ -85,8 +87,8 @@
                 />
                 <span class="form__input-err" id="imageUrlInput-Error"></span>
               </section>
+              <button type="submit" class="form__submit-btn">Создать</button>
             </form>
-            <button type="submit" class="popup__save-btn">Создать</button>
           </div>
         </div>
 
@@ -117,7 +119,7 @@
       </article>
     </template>
 
-    <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

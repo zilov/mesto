@@ -13,13 +13,13 @@ const cardPopupCaption = cardPopup.querySelector(".popup__caption");
 const popupEditElement = document.querySelector("#popup-edit-profile");
 const popupEditNameInput = popupEditElement.querySelector("#nameInput");
 const popupEditStatusInput = popupEditElement.querySelector("#statusInput");
-const popupEditSaveBtn = popupEditElement.querySelector(".popup__save-btn");
+const popupEditSaveBtn = popupEditElement.querySelector(".form__submit-btn");
 const popupEditForm = popupEditElement.querySelector("#form-edit-profile-info");
 
 const popupAddElement = document.querySelector("#popup-add-card");
 const popupAddTitleInput = popupAddElement.querySelector("#titleInput");
 const popupAddImageInput = popupAddElement.querySelector("#imageUrlInput");
-const popupAddSaveBtn = popupAddElement.querySelector(".popup__save-btn");
+const popupAddSaveBtn = popupAddElement.querySelector(".form__submit-btn");
 const popupAddForm = popupAddElement.querySelector("#form-add-new-card");
 
 const popupList = document.querySelectorAll(".popup");

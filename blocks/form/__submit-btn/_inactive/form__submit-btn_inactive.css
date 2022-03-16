@@ -1,4 +1,4 @@
-.popup__save-btn_inactive {
+.form__submit-btn_inactive {
   background-color: #fff;
   color: #000;
   border: 1px solid #000;
@@ -7,6 +7,6 @@
   cursor: default;
 }
 
-.popup__save-btn_inactive:hover {
+.form__submit-btn_inactive:hover {
   opacity: 0.2;
 }

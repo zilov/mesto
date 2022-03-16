@@ -1,8 +1,8 @@
-.popup__save-btn {
+.form__submit-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 25px;
+  margin: 25px auto 0px;
   width: 238px;
   height: 46px;
   color: white;
@@ -19,13 +19,13 @@
   line-height: 17px;
 }
 
-.popup__save-btn:hover {
+.form__submit-btn:hover {
   opacity: 0.8;
 }
 
 @media screen and (min-width: 1024px) {
-  .popup__save-btn {
-    margin: 0 auto 37px;
+  .form__submit-btn {
+    margin: 28px auto 0px;
     width: 358px;
     height: 50px;
 
