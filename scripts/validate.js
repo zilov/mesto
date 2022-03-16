@@ -2,34 +2,35 @@ const validationSettings = {
   formSelector: '.form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit-btn',
-  inactiveButtonClass: '.form__submit-btn_inactive',
-  inputErrorClass: '.form__input-err',
-  errorClass: '.form__input-err_visible'
+  inactiveButtonClass: 'form__submit-btn_inactive',
+  inputErrorClass: 'form__input-err',
+  errorClass: 'form__input-err_visible',
+  
 }
 
-const showErrMessage = (formElement, inputElement, errMessage) => {
+const showErrMessage = (formElement, inputElement, errMessage, errActiveClass) => {
   const errMsgElement = formElement.querySelector(`#${inputElement.id}-Error`);
   errMsgElement.textContent = errMessage;
-  errMsgElement.classList.add('form__input-err_visible');
+  errMsgElement.classList.add(errActiveClass);
 }
 
 
-const hideErrMessage = (formElement, inputElement) => {
+const hideErrMessage = (formElement, inputElement, errActiveClass) => {
   const errMsgElement = formElement.querySelector(`#${inputElement.id}-Error`);
   
   errMsgElement.textContent = '';
-  errMsgElement.classList.remove('form__input-err_visible');
+  errMsgElement.classList.remove(errActiveClass);
 }
 
 
-const toggleSubmitBtn = (formElement, formInputs) => {
-  const submitBtn = formElement.parentElement.querySelector('.form__submit-btn');
+const toggleSubmitBtn = (formElement, formInputs, submitBtnSelector, submitBtnDisabledClass) => {
+  const submitBtn = formElement.parentElement.querySelector(submitBtnSelector);
 
   if (!formInputs.every(isInputValid)) {
-    submitBtn.classList.add('form__submit-btn_inactive');
+    submitBtn.classList.add(submitBtnDisabledClass);
     submitBtn.disabled = true;
   } else {
-    submitBtn.classList.remove('form__submit-btn_inactive');
+    submitBtn.classList.remove(submitBtnDisabledClass);
     submitBtn.disabled = false;
   }
 }
@@ -39,22 +40,22 @@ const isInputValid = (inputElement) => {
 }
 
 
-const addFormValidityListeners = (formElement) => {
-  const formInputs = Array.from(formElement.querySelectorAll('.form__input'))
-  toggleSubmitBtn(formElement, formInputs);
-
+const addFormValidityListeners = (formElement, formInputs, errActiveClass, submitBtnSelector, submitBtnDisabledClass) => {
+  
+  toggleSubmitBtn(formElement, formInputs, submitBtnSelector, submitBtnDisabledClass);
+  
   formInputs.forEach(input => {
     input.addEventListener('input', function (event) {
       const valid = event.target.validity.valid;
   
       if (valid) {
-        hideErrMessage(formElement, event.target);
+        hideErrMessage(formElement, event.target, errActiveClass);
       } else {
         const errMessage = event.target.validationMessage;
-        showErrMessage(formElement, event.target, errMessage);
+        showErrMessage(formElement, event.target, errMessage, errActiveClass);
       }
 
-      toggleSubmitBtn(formElement, formInputs);
+      toggleSubmitBtn(formElement, formInputs, submitBtnSelector, submitBtnDisabledClass);
     })
   })
 }
@@ -64,10 +65,13 @@ const enableValidation = (settings) => {
   const forms = Array.from(document.querySelectorAll(settings.formSelector));
   forms.forEach(formElement => {
 
+    const formInputs = Array.from(formElement.querySelectorAll(settings.inputSelector));
     formElement.addEventListener('submit', function(event) {
       event.preventDefault();
     })
-    addFormValidityListeners(formElement);
+
+
+    addFormValidityListeners(formElement, formInputs, settings.errorClass, settings.submitButtonSelector, settings.inactiveButtonClass);
   })
 }
 
