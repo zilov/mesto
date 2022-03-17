@@ -133,7 +133,7 @@ function openPopup(popupElement) {
 
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_active");
-  popupElement.removeEventListener('keydown', escCloseListener);
+  popupElement.removeEventListener("keydown", escCloseListener);
 }
 
 function addPopupCloseListener(popupElement) {
@@ -158,37 +158,34 @@ function setEditPopupInputValues() {
   popupEditStatusInput.value = profileStatus.textContent;
 }
 
-
 const escCloseListener = (event) => {
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      if (popupEditElement.classList.contains('popup_active')) {
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      if (popupEditElement.classList.contains("popup_active")) {
         closePopup(popupEditElement);
       }
-      if (popupAddElement.classList.contains('popup_active')) {
+      if (popupAddElement.classList.contains("popup_active")) {
         closePopup(popupAddElement);
       }
     }
-  }) 
-}
-
+  });
+};
 
 const enterSubmitListener = (inputElement, popupElement, submitFunction) => {
-  inputElement.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-       submitFunction();
+  inputElement.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      submitFunction();
     }
-  }) 
-}
-
+  });
+};
 
 const popupCloseByBgClick = (popupElement) => {
-  popupElement.addEventListener('click', function(event) {
+  popupElement.addEventListener("click", function (event) {
     if (event.target === event.currentTarget) {
       closePopup(popupElement);
     }
-  })
-}
+  });
+};
 
 cardsListInitial.forEach((item) => {
   renderCard(createCard(item));
@@ -201,7 +198,7 @@ popupList.forEach((popup) => {
 profileEditBtn.addEventListener("click", function () {
   setEditPopupInputValues();
   escCloseListener();
-  popupCloseByBgClick(popupEditElement)
+  popupCloseByBgClick(popupEditElement);
   openPopup(popupEditElement);
 });
 
@@ -209,7 +206,7 @@ cardAddBtn.addEventListener("click", function () {
   clearAddPopupForm();
   // addEscCloseListener(popupAddElement);
   // addEnterSubmitListener(popupAddElement);
-  popupCloseByBgClick(popupAddElement)
+  popupCloseByBgClick(popupAddElement);
   openPopup(popupAddElement);
 });
 
