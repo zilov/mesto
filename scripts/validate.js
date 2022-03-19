@@ -20,12 +20,21 @@ const showErrMessage = (
   errMsgElement.classList.add(errActiveClass);
 };
 
-const hideErrMessage = (formElement, inputElement, errActiveClass, inputErrorClass) => {
+const hideErrMessage = (
+  formElement,
+  inputElement,
+  errActiveClass,
+  inputErrorClass
+) => {
   inputElement.classList.remove(inputErrorClass);
   const errMsgElement = formElement.querySelector(`#${inputElement.id}-Error`);
 
   errMsgElement.textContent = "";
   errMsgElement.classList.remove(errActiveClass);
+};
+
+const isInputValid = (inputElement) => {
+  return inputElement.validity.valid;
 };
 
 const toggleSubmitBtn = (
@@ -34,7 +43,7 @@ const toggleSubmitBtn = (
   submitBtnSelector,
   submitBtnDisabledClass
 ) => {
-  const submitBtn = formElement.parentElement.querySelector(submitBtnSelector);
+  const submitBtn = formElement.querySelector(submitBtnSelector);
 
   if (!formInputs.every(isInputValid)) {
     submitBtn.classList.add(submitBtnDisabledClass);
@@ -45,10 +54,6 @@ const toggleSubmitBtn = (
   }
 };
 
-const isInputValid = (inputElement) => {
-  return inputElement.validity.valid;
-};
-
 const addFormValidityListeners = (
   formElement,
   formInputs,
@@ -57,22 +62,26 @@ const addFormValidityListeners = (
   submitBtnSelector,
   submitBtnDisabledClass
 ) => {
-  toggleSubmitBtn(
-    formElement,
-    formInputs,
-    submitBtnSelector,
-    submitBtnDisabledClass
-  );
-
   formInputs.forEach((input) => {
     input.addEventListener("input", function (event) {
       const valid = event.target.validity.valid;
 
       if (valid) {
-        hideErrMessage(formElement, event.target, errActiveClass, inputErrorClass);
+        hideErrMessage(
+          formElement,
+          event.target,
+          errActiveClass,
+          inputErrorClass
+        );
       } else {
         const errMessage = event.target.validationMessage;
-        showErrMessage(formElement, event.target, errMessage, errActiveClass, inputErrorClass);
+        showErrMessage(
+          formElement,
+          event.target,
+          errMessage,
+          errActiveClass,
+          inputErrorClass
+        );
       }
 
       toggleSubmitBtn(
