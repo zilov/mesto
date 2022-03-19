@@ -1,7 +1,6 @@
 .form__section {
   display: flex;
   flex-direction: column;
-  margin-bottom: 13px;
 }
 
 .form__section:last-of-type {
