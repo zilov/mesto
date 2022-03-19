@@ -3,7 +3,7 @@ const validationSettings = {
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit-btn",
   inactiveButtonClass: "form__submit-btn_inactive",
-  inputErrorClass: "form__input-err",
+  inputErrorClass: "form__input_invalid",
   errorClass: "form__input-err_visible",
 };
 
@@ -11,14 +11,17 @@ const showErrMessage = (
   formElement,
   inputElement,
   errMessage,
-  errActiveClass
+  errActiveClass,
+  inputErrorClass
 ) => {
+  inputElement.classList.add(inputErrorClass);
   const errMsgElement = formElement.querySelector(`#${inputElement.id}-Error`);
   errMsgElement.textContent = errMessage;
   errMsgElement.classList.add(errActiveClass);
 };
 
-const hideErrMessage = (formElement, inputElement, errActiveClass) => {
+const hideErrMessage = (formElement, inputElement, errActiveClass, inputErrorClass) => {
+  inputElement.classList.remove(inputErrorClass);
   const errMsgElement = formElement.querySelector(`#${inputElement.id}-Error`);
 
   errMsgElement.textContent = "";
@@ -49,6 +52,7 @@ const isInputValid = (inputElement) => {
 const addFormValidityListeners = (
   formElement,
   formInputs,
+  inputErrorClass,
   errActiveClass,
   submitBtnSelector,
   submitBtnDisabledClass
@@ -65,10 +69,10 @@ const addFormValidityListeners = (
       const valid = event.target.validity.valid;
 
       if (valid) {
-        hideErrMessage(formElement, event.target, errActiveClass);
+        hideErrMessage(formElement, event.target, errActiveClass, inputErrorClass);
       } else {
         const errMessage = event.target.validationMessage;
-        showErrMessage(formElement, event.target, errMessage, errActiveClass);
+        showErrMessage(formElement, event.target, errMessage, errActiveClass, inputErrorClass);
       }
 
       toggleSubmitBtn(
@@ -94,6 +98,7 @@ const enableValidation = (settings) => {
     addFormValidityListeners(
       formElement,
       formInputs,
+      settings.inputErrorClass,
       settings.errorClass,
       settings.submitButtonSelector,
       settings.inactiveButtonClass
