@@ -9,28 +9,28 @@ const cardSettings = {
 
 export class Card {
   constructor(cardData, cardTemplateSelector) {
-    this._title = cardData.title,
+    this._title = cardData.name,
     this._link = cardData.link,
-    this._name = cardData.title,
-    this._template = cardTemplateSelector,
-    this._element = this._template.cloneNode(true)
+    this._name = cardData.name,
+    this._template = document.querySelector(cardTemplateSelector),
+    this._element = this._template.content.cloneNode(true)
   }
-
+  
   _toggleLike(event) {
     event.target.classList.toggle(cardSettings.cardLikeActiveClass);
   }
 
-  _removeCard() {
-    this._element.remove();
+  _removeCard(event) {
+    event.target.closest(cardSettings.cardSelector).remove();
   }  
   
   _addCardListeners() {
     this._element
     .querySelector(cardSettings.cardRemoveBtnSelector)
-    .addEventListener("click", removeCard);
+    .addEventListener("click", this._removeCard);
     this._element
     .querySelector(cardSettings.cardLikeBtnSelector)
-    .addEventListener("click", toggleLike);
+    .addEventListener("click", this._toggleLike);
   }
   
   createCard() {
@@ -41,8 +41,8 @@ export class Card {
     cardTitleElement.textContent = this._title;
     cardImageElement.src = this._link;
     
-    addCardListeners();
-    
+    this._addCardListeners();
+  
     return this._element;
   }
 }

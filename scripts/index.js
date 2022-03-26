@@ -1,3 +1,5 @@
+import { Card } from "./Card.js";
+
 const profileElement = document.querySelector(".profile");
 const profileName = profileElement.querySelector(".profile__name");
 const profileStatus = profileElement.querySelector(".profile__status");
@@ -51,37 +53,6 @@ const cardsListInitial = [
   },
 ];
 
-function createCard(cardObject) {
-  const cardElement = cardTemplate.cloneNode(true);
-
-  const cardImageElement = cardElement.querySelector(".card__image");
-  const cardTitleElement = cardElement.querySelector(".card__title");
-
-  cardImageElement.alt = cardObject.name;
-  cardTitleElement.textContent = cardObject.name;
-  cardImageElement.src = cardObject.link;
-
-  addCardListeners(cardElement);
-
-  return cardElement;
-}
-
-function removeCard(event) {
-  const cardElement = event.target.closest(".card");
-  cardElement.remove();
-}
-
-function toggleLike(event) {
-  event.target.classList.toggle("card__like-btn_type_active");
-}
-
-function getCardTitle(cardElement) {
-  return cardElement.querySelector(".card__title").textContent;
-}
-
-function getCardImageLink(cardElement) {
-  return cardElement.querySelector(".card__image").src;
-}
 
 function createCardPopupElement(cardTitle, cardImageLink) {
   cardPopupImage.src = cardImageLink;
@@ -91,17 +62,14 @@ function createCardPopupElement(cardTitle, cardImageLink) {
 
 function renderCardPopup(event) {
   const card = event.target.closest(".card");
-  createCardPopupElement(getCardTitle(card), getCardImageLink(card));
+  createCardPopupElement(
+    card.querySelector('.card__title').textContent,
+    card.querySelector('.card__image').src
+    );
   openPopup(cardPopup);
 }
 
 function addCardListeners(cardElement) {
-  cardElement
-    .querySelector(".card__remove-btn")
-    .addEventListener("click", removeCard);
-  cardElement
-    .querySelector(".card__like-btn")
-    .addEventListener("click", toggleLike);
   cardElement
     .querySelector(".card__image")
     .addEventListener("click", renderCardPopup);
@@ -119,7 +87,7 @@ function submitNewCard(event) {
     link: popupAddImageInput.value,
   };
 
-  renderCard(createCard(cardObj));
+  renderCard(new Card(cardObj));
   closePopup(popupAddElement);
 }
 
@@ -185,7 +153,9 @@ function disableSubmitBtn(popupElement) {
 }
 
 cardsListInitial.forEach((item) => {
-  renderCard(createCard(item));
+  const card = new Card(item, "#card-template").createCard();
+  addCardListeners(card);
+  renderCard(card);
 });
 
 popupList.forEach((popup) => {
