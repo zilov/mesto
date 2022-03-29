@@ -1,4 +1,22 @@
 import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
+const validationSettings = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__submit-btn",
+  inactiveButtonClass: "form__submit-btn_inactive",
+  inputErrorClass: "form__input_invalid",
+  errorActiveClass: "form__input-err_visible",
+};
+
+const forms = Array.from(document.querySelectorAll(validationSettings.formSelector))
+
+forms.forEach((form) => {
+  const validator = new FormValidator(validationSettings, form);
+  validator.enableValidation();
+})
+
 
 const profileElement = document.querySelector(".profile");
 const profileName = profileElement.querySelector(".profile__name");
@@ -87,7 +105,9 @@ function submitNewCard(event) {
     link: popupAddImageInput.value,
   };
 
-  renderCard(new Card(cardObj));
+  const card = new Card(cardObj, "#card-template").createCard();
+  addCardListeners(card);
+  renderCard(card);
   closePopup(popupAddElement);
 }
 
@@ -164,6 +184,7 @@ popupList.forEach((popup) => {
 });
 
 profileEditBtn.addEventListener("click", function () {
+
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
   hideInputErrors(popupEditElement);
