@@ -1,38 +1,33 @@
-const cardSettings = {
-  cardSelector: ".card",
-  cardImageSelector: ".card__image",
-  cardTitleSelector: ".card__title",
-  cardRemoveBtnSelector: ".card__remove-btn",
-  cardLikeBtnSelector: ".card__like-btn",
-  cardLikeActiveClass: "card__like-btn_type_active",
-}
-
 export class Card {
-  constructor(cardData, cardTemplateSelector, handleCardClick) {
+  constructor(cardData, cardSettings, handleCardClick) {
     this._title = cardData.name,
     this._link = cardData.link,
     this._name = cardData.name,
-    this._template = document.querySelector(cardTemplateSelector),
+    this._template = document.querySelector(cardSettings.cardTemplateSelector),
     this._element = this._template.content.cloneNode(true),
-    this._cardImageElement = this._element.querySelector(cardSettings.cardImageSelector);
-    this._cardTitleElement = this._element.querySelector(cardSettings.cardTitleSelector);
+    this._cardImageElement = this._element.querySelector(cardSettings.cardImageSelector),
+    this._cardTitleElement = this._element.querySelector(cardSettings.cardTitleSelector),
+    this._removeButton = cardSettings.cardLikeBtnSelector,
+    this._likeButton = cardSettings.cardLikeBtnSelector,
+    this._likeActive = cardSettings.cardLikeActiveClass,
+    this._cardSelector = cardSettings.cardSelector,
     this._handleCardClick = handleCardClick
   }
   
   _toggleLike(event) {
-    event.target.classList.toggle(cardSettings.cardLikeActiveClass);
+    event.target.classList.toggle(this._likeActive);
   }
 
   _removeCard(event) {
-    event.target.closest(cardSettings.cardSelector).remove();
+    event.target.closest(this._cardSelector).remove();
   }  
   
   _addCardListeners() {
     this._element
-    .querySelector(cardSettings.cardRemoveBtnSelector)
+    .querySelector(this._removeButton)
     .addEventListener("click", this._removeCard);
     this._element
-    .querySelector(cardSettings.cardLikeBtnSelector)
+    .querySelector(this._likeButton)
     .addEventListener("click", this._toggleLike);
     this._cardImageElement.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
