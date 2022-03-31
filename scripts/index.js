@@ -72,25 +72,11 @@ const cardsListInitial = [
 ];
 
 
-function createCardPopupElement(cardTitle, cardImageLink) {
+export function handleCardClick(cardTitle, cardImageLink) {
   cardPopupImage.src = cardImageLink;
   cardPopupImage.alt = cardTitle;
   cardPopupCaption.textContent = cardTitle;
-}
-
-function renderCardPopup(event) {
-  const card = event.target.closest(".card");
-  createCardPopupElement(
-    card.querySelector('.card__title').textContent,
-    card.querySelector('.card__image').src
-    );
   openPopup(cardPopup);
-}
-
-function addCardListeners(cardElement) {
-  cardElement
-    .querySelector(".card__image")
-    .addEventListener("click", renderCardPopup);
 }
 
 function renderCard(cardElement) {
@@ -105,8 +91,7 @@ function submitNewCard(event) {
     link: popupAddImageInput.value,
   };
 
-  const card = new Card(cardObj, "#card-template").createCard();
-  addCardListeners(card);
+  const card = new Card(cardObj, "#card-template", handleCardClick).createCard();
   renderCard(card);
   closePopup(popupAddElement);
 }
@@ -173,8 +158,7 @@ function disableSubmitBtn(popupElement) {
 }
 
 cardsListInitial.forEach((item) => {
-  const card = new Card(item, "#card-template").createCard();
-  addCardListeners(card);
+  const card = new Card(item, "#card-template", handleCardClick).createCard();
   renderCard(card);
 });
 

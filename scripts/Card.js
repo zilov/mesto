@@ -8,12 +8,15 @@ const cardSettings = {
 }
 
 export class Card {
-  constructor(cardData, cardTemplateSelector) {
+  constructor(cardData, cardTemplateSelector, handleCardClick) {
     this._title = cardData.name,
     this._link = cardData.link,
     this._name = cardData.name,
     this._template = document.querySelector(cardTemplateSelector),
-    this._element = this._template.content.cloneNode(true)
+    this._element = this._template.content.cloneNode(true),
+    this._cardImageElement = this._element.querySelector(cardSettings.cardImageSelector);
+    this._cardTitleElement = this._element.querySelector(cardSettings.cardTitleSelector);
+    this._handleCardClick = handleCardClick
   }
   
   _toggleLike(event) {
@@ -31,15 +34,15 @@ export class Card {
     this._element
     .querySelector(cardSettings.cardLikeBtnSelector)
     .addEventListener("click", this._toggleLike);
+    this._cardImageElement.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
+    })
   }
   
   createCard() {
-    const cardImageElement = this._element.querySelector(cardSettings.cardImageSelector);
-    const cardTitleElement = this._element.querySelector(cardSettings.cardTitleSelector);
-    
-    cardImageElement.alt = this._name;
-    cardTitleElement.textContent = this._title;
-    cardImageElement.src = this._link;
+    this._cardImageElement.alt = this._name;
+    this._cardTitleElement.textContent = this._title;
+    this._cardImageElement.src = this._link;
     
     this._addCardListeners();
   
