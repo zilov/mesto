@@ -170,8 +170,8 @@ profileEditBtn.addEventListener("click", function () {
 });
 
 cardAddBtn.addEventListener("click", function () {
-  formValidators[popupAddForm.id].resetValidation();
   popupAddForm.reset();
+  formValidators[popupAddForm.id].resetValidation();
   openPopup(popupAddElement);
 });
 

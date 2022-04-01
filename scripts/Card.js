@@ -7,7 +7,7 @@ export class Card {
     this._element = this._template.content.cloneNode(true),
     this._cardImageElement = this._element.querySelector(cardSettings.cardImageSelector),
     this._cardTitleElement = this._element.querySelector(cardSettings.cardTitleSelector),
-    this._removeButton = cardSettings.cardLikeBtnSelector,
+    this._removeButton = cardSettings.cardRemoveBtnSelector,
     this._likeButton = cardSettings.cardLikeBtnSelector,
     this._likeActive = cardSettings.cardLikeActiveClass,
     this._cardSelector = cardSettings.cardSelector,
@@ -25,10 +25,10 @@ export class Card {
   _addCardListeners() {
     this._element
     .querySelector(this._removeButton)
-    .addEventListener("click", this._removeCard);
+    .addEventListener("click", this._removeCard.bind(this));
     this._element
     .querySelector(this._likeButton)
-    .addEventListener("click", this._toggleLike);
+    .addEventListener("click", this._toggleLike.bind(this));
     this._cardImageElement.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     })
