@@ -22,19 +22,17 @@ const cardSettings = {
   cardLikeActiveClass: "card__like-btn_type_active",
 };
 
-const formValidators = {};
+const popupSettings = {
+  popupActiveClass: "popup_active",
+  popupCloseBtnSelector: ".popup__exit-btn",
+}
 
-const enableValidation = (config) => {
-  const forms = Array.from(document.querySelectorAll(config.formSelector));
-  forms.forEach((form) => {
-    const formName = form.id;
-    const validator = new FormValidator(config, form);
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(validationSettings);
+const pageSettings = {
+  popupSelector: ".popup",
+  popupEditSelector: "#popup-edit-profile",
+  popupAddSelector: "#popup-add-card",
+  popupCardSelector: "#popup-card-image",
+}
 
 const profileElement = document.querySelector(".profile");
 const profileName = profileElement.querySelector(".profile__name");
@@ -57,7 +55,6 @@ const popupAddTitleInput = popupAddElement.querySelector("#titleInput");
 const popupAddImageInput = popupAddElement.querySelector("#imageUrlInput");
 const popupAddForm = popupAddElement.querySelector("#form-add-new-card");
 
-const popupList = document.querySelectorAll(".popup");
 
 const cardsListInitial = [
   {
@@ -86,17 +83,41 @@ const cardsListInitial = [
   },
 ];
 
-const popupEditInfo = new Popup("#popup-edit-profile");
-const popupAddCard = new Popup("#popup-add-card");
 
-popupEditInfo.addPopupCloseListeners();
-popupAddCard.addPopupCloseListeners();
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const forms = Array.from(document.querySelectorAll(config.formSelector));
+  forms.forEach((form) => {
+    const formName = form.id;
+    const validator = new FormValidator(config, form);
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationSettings);
+
+const popups = {};
+
+const enablePopupListeners = () => {
+  const pagePopups = Array.from(document.querySelectorAll(pageSettings.popupSelector));
+  pagePopups.forEach(popup => {
+    const popupName = `#${popup.id}`;
+    const popupObject = new Popup(popupName, popupSettings);
+    popups[popupName] = popupObject;
+    popupObject.addPopupCloseListeners();
+  })
+} 
+
+enablePopupListeners();
+
 
 function handleCardClick(cardTitle, cardImageLink) {
   cardPopupImage.src = cardImageLink;
   cardPopupImage.alt = cardTitle;
   cardPopupCaption.textContent = cardTitle;
-  openPopup(cardPopup);
+  popups[pageSettings.popupCardSelector].openPopup();
 }
 
 function createCard(cardInfo) {
@@ -117,7 +138,7 @@ function submitNewCard(event) {
 
   const card = createCard(cardObj);
   renderCard(card);
-  popupAddCard.closePopup();
+  popups[pageSettings.popupAddSelector].closePopup();
 }
 
 
@@ -125,22 +146,7 @@ function changeProfileInfo(event) {
   event.preventDefault();
   profileName.textContent = popupEditNameInput.value;
   profileStatus.textContent = popupEditStatusInput.value;
-  popupEditInfo.closePopup();
-}
-
-function handleEscapeKey(event) {
-  if (event.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_active");
-    closePopup(openedPopup);
-  }
-}
-
-function handleOverlay(popupElement) {
-  popupElement.addEventListener("click", function (event) {
-    if (event.target === event.currentTarget) {
-      closePopup(popupElement);
-    }
-  });
+  popups[pageSettings.popupEditSelector].closePopup()
 }
 
 cardsListInitial.forEach((item) => {
@@ -152,13 +158,13 @@ profileEditBtn.addEventListener("click", function () {
   formValidators[popupAddForm.id].resetValidation();
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
-  popupEditInfo.openPopup();
+  popups[pageSettings.popupEditSelector].openPopup();
 });
 
 cardAddBtn.addEventListener("click", function () {
   popupAddForm.reset();
   formValidators[popupAddForm.id].resetValidation();
-  popupAddCard.openPopup();
+  popups[pageSettings.popupAddSelector].openPopup();
 });
 
 popupEditForm.addEventListener("submit", changeProfileInfo);
