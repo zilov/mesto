@@ -8,7 +8,3 @@
   font-size: 14px;
   line-height: 17px;
 }
-
-.form__input:not(:focus):not(:valid) {
-  border-color: #ff0000;
-}
