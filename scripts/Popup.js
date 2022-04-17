@@ -1,35 +1,38 @@
+import {
+  popupActiveClass,
+  closeBtnSelector,
+} from '../utils/constants.js'
+
 export class Popup {
-  constructor(popupSelector, popupSettings) {
-    this._element = document.querySelector(popupSelector),
-    this._activeClass = popupSettings.popupActiveClass,
-    this._closeBtnSelector = popupSettings.popupCloseBtnSelector
+  constructor(popupSelector) {
+    this._element = document.querySelector(popupSelector)
   }
 
-  openPopup() {
-    this._element.classList.add(this._activeClass);
-    document.addEventListener("keydown", this._escCloseListener.bind(this));
+  open() {
+    this._element.classList.add(popupActiveClass);
+    document.addEventListener("keydown", this._handleEscClose.bind(this));
   }
   
-  closePopup() {
-    this._element.classList.remove(this._activeClass);
-    document.removeEventListener("keydown", this._escCloseListener.bind(this));
+  close() {
+    this._element.classList.remove(popupActiveClass);
+    document.removeEventListener("keydown", this._handleEscClose.bind(this));
   }
   
   addPopupCloseListeners() {
     this._element
-      .querySelector(this._closeBtnSelector)
-      .addEventListener("click", this.closePopup.bind(this));
+      .querySelector(closeBtnSelector)
+      .addEventListener("click", this.close.bind(this));
 
     this._element.addEventListener("click", function (event) {
       if (event.target === event.currentTarget) {
-        this.closePopup();
+        this.close();
       }
     }.bind(this));
   }
 
-  _escCloseListener(event) {
+  _handleEscClose(event) {
     if (event.key === "Escape") {
-      this.closePopup();
+      this.close();
     }
   }
 }
