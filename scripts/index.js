@@ -1,38 +1,18 @@
-import { Card } from "./Card.js";
-import { Popup } from "./Popup.js";
-import { CardPopup } from "./CardPopup.js";
-import { FormValidator } from "./FormValidator.js";
-
-const validationSettings = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__submit-btn",
-  inactiveButtonClass: "form__submit-btn_inactive",
-  inputErrorClass: "form__input_invalid",
-  errorActiveClass: "form__input-err_visible",
-};
-
-const cardSettings = {
-  cardTemplateSelector: "#card-template",
-  cardSelector: ".card",
-  cardImageSelector: ".card__image",
-  cardTitleSelector: ".card__title",
-  cardRemoveBtnSelector: ".card__remove-btn",
-  cardLikeBtnSelector: ".card__like-btn",
-  cardLikeActiveClass: "card__like-btn_type_active",
-};
-
-const popupSettings = {
-  popupActiveClass: "popup_active",
-  popupCloseBtnSelector: ".popup__exit-btn",
-}
-
-const pageSettings = {
-  popupSelector: ".popup",
-  popupEditSelector: "#popup-edit-profile",
-  popupAddSelector: "#popup-add-card",
-  popupCardSelector: "#popup-card-image",
-}
+import Card from "../components/Card.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import {
+  validationSettings,
+  cardSettings,
+  popupSettings,
+  pageSettings,
+  cardsListInitial,
+  cardsContainerSelector
+} from "../utils/constants.js";
 
 const profileElement = document.querySelector(".profile");
 const profileName = profileElement.querySelector(".profile__name");
@@ -55,35 +35,6 @@ const popupAddTitleInput = popupAddElement.querySelector("#titleInput");
 const popupAddImageInput = popupAddElement.querySelector("#imageUrlInput");
 const popupAddForm = popupAddElement.querySelector("#form-add-new-card");
 
-
-const cardsListInitial = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-
 const formValidators = {};
 
 const enableValidation = (config) => {
@@ -98,19 +49,27 @@ const enableValidation = (config) => {
 
 enableValidation(validationSettings);
 
-const popups = {};
+const cards = new Section({
+  items: cardsListInitial,
+  renderer: (item) => {
+    const card = createCard(item);
+    cards.addItem(card);
+  }, cardsContainerSelector
+})
 
-const enablePopupListeners = () => {
-  const pagePopups = Array.from(document.querySelectorAll(pageSettings.popupSelector));
-  pagePopups.forEach(popup => {
-    const popupName = `#${popup.id}`;
-    const popupObject = new Popup(popupName, popupSettings);
-    popups[popupName] = popupObject;
-    popupObject.addPopupCloseListeners();
-  })
-} 
+// // const popups = {};
 
-enablePopupListeners();
+// // const enablePopupListeners = () => {
+// //   const pagePopups = Array.from(document.querySelectorAll(pageSettings.popupSelector));
+// //   pagePopups.forEach(popup => {
+// //     const popupName = `#${popup.id}`;
+// //     const popupObject = new Popup(popupName, popupSettings);
+// //     popups[popupName] = popupObject;
+// //     popupObject.addPopupCloseListeners();
+// //   })
+// // } 
+
+// enablePopupListeners();
 
 
 function handleCardClick(cardTitle, cardImageLink) {
