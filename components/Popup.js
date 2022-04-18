@@ -3,7 +3,7 @@ import {
   closeBtnSelector,
 } from '../utils/constants.js'
 
-export class Popup {
+export default class Popup {
   constructor(popupSelector) {
     this._element = document.querySelector(popupSelector)
   }
@@ -18,7 +18,7 @@ export class Popup {
     document.removeEventListener("keydown", this._handleEscClose.bind(this));
   }
   
-  addPopupCloseListeners() {
+  setEventListeners() {
     this._element
       .querySelector(closeBtnSelector)
       .addEventListener("click", this.close.bind(this));

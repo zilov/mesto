@@ -1,26 +1,22 @@
 import { Popup } from "./Popup.js";
+import {
+  cardPopupImageSelector,
+  cardPopupCaptionSelector,
+  cardPopupSelector,
+} from "../utils/constants.js";
 
-const cardPopupSettings = {
-  cardPopupImageSelector: ".popup__image",
-  cardPopupCaptionSelector: '.popup__caption',
-  cardImageSelector: ".card__image",
-  cardTitleSelector: ".card__title",
-}
-
-export class CardPopup extends Popup {
-  constructor(popupSelector, cardElement) {
-    super(popupSelector);
-    this._card = cardElement,
-    this._image = this._element.querySelector(cardPopupSettings.cardPopupImageSelector),
-    this._caption = this._element.querySelector(cardPopupSettings.cardPopupCaptionSelector),
-    this._captionText = this._card.querySelector(cardPopupSettings.cardTitleSelector).textContent,
-    this._imageLink = this._card.querySelector(cardPopupSettings.cardImageSelector).src
+export default class PopupWithImage extends Popup {
+  constructor(imageLink, caption) {
+    super(cardPopupSelector);
+    this._image = this._element.querySelector(cardPopupImageSelector),
+    this._caption = this._element.querySelector(cardPopupCaptionSelector),
+    this._captionText = caption,
+    this._imageLink = imageLink
   }
-  
-  createCardPopupElement() {
-    this._image.src = this._imageLink;
-    this._image.alt = this._captionText;
-    this._caption = this._captionText;
-    return this._element;
+
+  open() {
+    this._image.src = imageLink;
+    this._captionText.textContent = caption;
+    super.open();
   }
 }
