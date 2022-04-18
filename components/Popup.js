@@ -1,6 +1,6 @@
 import {
   popupActiveClass,
-  closeBtnSelector,
+  popupCloseBtnSelector,
 } from '../utils/constants.js'
 
 export default class Popup {
@@ -20,7 +20,7 @@ export default class Popup {
   
   setEventListeners() {
     this._element
-      .querySelector(closeBtnSelector)
+      .querySelector(popupCloseBtnSelector)
       .addEventListener("click", this.close.bind(this));
 
     this._element.addEventListener("click", function (event) {
