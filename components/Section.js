@@ -12,7 +12,6 @@ export default class Section {
   }
 
   addItem(item) {
-    this._container.add(item);
+    this._container.prepend(item);
   }
-
 }
