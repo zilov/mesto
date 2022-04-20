@@ -15,6 +15,24 @@ export const popupEditProfileSelector = "#popup-edit-profile";
 export const formInputSelector = ".form__input";
 export const formSelector = ".form";
 
+export const userNameSelector = ".profile__name";
+export const userStatusSelector = ".profile__status";
+
+const profileElement = document.querySelector('.profile');
+const popupEditElement = document.querySelector('#popup-edit-profile')
+export const profileName = profileElement.querySelector(userNameSelector);
+export const profileStatus = profileElement.querySelector(userStatusSelector);
+export const popupEditNameInput = popupEditElement.querySelector("#nameInput");
+export const popupEditStatusInput = popupEditElement.querySelector("#statusInput");
+
+export const profileEditBtn = profileElement.querySelector('.profile__edit-btn');
+export const cardAddBtn = profileElement.querySelector('.profile__add-btn');
+
+export const popupAddForm = document.querySelector('#form-edit-profile-info');
+export const popupEditForm = document.querySelector('#form-add-new-card');
+
+
+
 export const validationSettings = {
   formSelector: ".form",
   inputSelector: ".form__input",

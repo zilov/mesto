@@ -1,5 +1,4 @@
 import Card from "../components/Card.js";
-import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
@@ -14,29 +13,17 @@ import {
   cardsContainerSelector,
   popupAddCardSelector,
   popupEditProfileSelector,
+  userNameSelector,
+  userStatusSelector,
+  profileName,
+  profileStatus,
+  popupEditNameInput,
+  popupEditStatusInput,
+  profileEditBtn,
+  cardAddBtn,
+  popupAddForm,
+  popupEditForm
 } from "../utils/constants.js";
-
-const profileElement = document.querySelector(".profile");
-const profileName = profileElement.querySelector(".profile__name");
-const profileStatus = profileElement.querySelector(".profile__status");
-const profileEditBtn = profileElement.querySelector(".profile__edit-btn");
-const cardAddBtn = profileElement.querySelector(".profile__add-btn");
-
-const cardsContainer = document.querySelector(".cards");
-const cardPopup = document.querySelector("#popup-card-image");
-const cardPopupImage = cardPopup.querySelector(".popup__image");
-const cardPopupCaption = cardPopup.querySelector(".popup__caption");
-
-const popupEditElement = document.querySelector("#popup-edit-profile");
-const popupEditNameInput = popupEditElement.querySelector("#nameInput");
-const popupEditStatusInput = popupEditElement.querySelector("#statusInput");
-const popupEditForm = popupEditElement.querySelector("#form-edit-profile-info");
-
-const popupAddElement = document.querySelector("#popup-add-card");
-const popupAddTitleInput = popupAddElement.querySelector("#titleInput");
-const popupAddImageInput = popupAddElement.querySelector("#imageUrlInput");
-const popupAddForm = popupAddElement.querySelector("#form-add-new-card");
-
 
 
 // validation
@@ -54,16 +41,15 @@ const enableValidation = (config) => {
 
 enableValidation(validationSettings);
 
+const user = new UserInfo(userNameSelector, userStatusSelector);
 
-const popupEditProfile = new PopupWithForm(popupEditProfileSelector, 
-  function changeProfileInfo(event) {
-    event.preventDefault();
-    profileName.textContent = popupEditNameInput.value;
-    profileStatus.textContent = popupEditStatusInput.value;
-    popups[pageSettings.popupEditSelector].closePopup()
+const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData) => {
+  user.setUserInfo(inputData["nameInput"], inputData["statusInput"]);
+  popupEditProfile.close();
   }
-  );
-  
+);
+
+popupEditProfile.setEventListeners();
 
 // cards render
 
@@ -79,9 +65,9 @@ cards.renderElements();
 
 
 function handleCardClick(cardImageLink, cardTitle) {
-  const cardPopup = new PopupWithImage(cardImageLink, cardTitle);
+  const cardPopup = new PopupWithImage();
   cardPopup.setEventListeners();
-  cardPopup.open();
+  cardPopup.open(cardImageLink, cardTitle);
 }
 
 function createCard(cardInfo) {
@@ -100,10 +86,10 @@ popupNewCard.setEventListeners();
 // buttons listeners
 
 profileEditBtn.addEventListener("click", function () {
-  formValidators[popupAddForm.id].resetValidation();
+  formValidators[popupEditForm.id].resetValidation();
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
-  popups[pageSettings.popupEditSelector].openPopup();
+  popupEditProfile.open();
 });
 
 cardAddBtn.addEventListener("click", function () {
