@@ -9,6 +9,9 @@ export const cardsContainerSelector = ".cards";
 export const cardImageSelector = ".card__image";
 export const cardTitleSelector = ".card__title";
 
+export const popupAddCardSelector = "#popup-add-card";
+export const popupEditProfileSelector = "#popup-edit-profile";
+
 export const formInputSelector = ".form__input";
 export const formSelector = ".form";
 
