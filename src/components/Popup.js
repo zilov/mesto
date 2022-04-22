@@ -6,8 +6,7 @@ import {
 export default class Popup {
   constructor(popupSelector) {
     this._element = document.querySelector(popupSelector),
-    this._handleEscClose = this._handleEscClose.bind(this),
-    this.close = this.close.bind(this)
+    this._handleEscClose = this._handleEscClose.bind(this)
   }
 
   open() {
@@ -25,7 +24,7 @@ export default class Popup {
       .querySelector(popupCloseBtnSelector)
       .addEventListener("click", this.close);
 
-    this._element.addEventListener("click", function (event) {
+    this._element.addEventListener("click", (event) => {
       if (event.target === event.currentTarget) {
         this.close();
       }
