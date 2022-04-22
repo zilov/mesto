@@ -28,8 +28,8 @@ export const popupEditStatusInput = popupEditElement.querySelector("#statusInput
 export const profileEditBtn = profileElement.querySelector('.profile__edit-btn');
 export const cardAddBtn = profileElement.querySelector('.profile__add-btn');
 
-export const popupAddForm = document.querySelector('#form-edit-profile-info');
-export const popupEditForm = document.querySelector('#form-add-new-card');
+export const popupAddForm = document.querySelector('#form-add-new-card');
+export const popupEditForm = document.querySelector('#form-edit-profile-info');
 
 
 
@@ -51,18 +51,6 @@ export const cardSettings = {
   cardLikeBtnSelector: ".card__like-btn",
   cardLikeActiveClass: "card__like-btn_type_active",
 };
-
-export const popupSettings = {
-  popupActiveClass: "popup_active",
-  popupCloseBtnSelector: ".popup__exit-btn",
-}
-
-export const pageSettings = {
-  popupSelector: ".popup",
-  popupEditSelector: "#popup-edit-profile",
-  popupAddSelector: "#popup-add-card",
-  popupCardSelector: "#popup-card-image",
-}
 
 export const cardsListInitial = [
   {

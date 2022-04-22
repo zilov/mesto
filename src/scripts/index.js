@@ -9,8 +9,6 @@ import UserInfo from "../components/UserInfo.js";
 import {
   validationSettings,
   cardSettings,
-  popupSettings,
-  pageSettings,
   cardsListInitial,
   cardsContainerSelector,
   popupAddCardSelector,
@@ -43,6 +41,8 @@ const enableValidation = (config) => {
 
 enableValidation(validationSettings);
 
+// edit profile info popup
+
 const user = new UserInfo(userNameSelector, userStatusSelector);
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData) => {
@@ -65,7 +65,6 @@ const cards = new Section({
 
 cards.renderElements();
 
-
 const cardPopup = new PopupWithImage();
 cardPopup.setEventListeners();
 function handleCardClick(cardImageLink, cardTitle) {
@@ -75,6 +74,8 @@ function handleCardClick(cardImageLink, cardTitle) {
 function createCard(cardInfo) {
   return new Card(cardInfo, cardSettings, handleCardClick).createCard();
 }
+
+// new card form popup
 
 const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
   const card = createCard(cardInfo);
