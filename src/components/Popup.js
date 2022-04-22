@@ -22,7 +22,7 @@ export default class Popup {
   setEventListeners() {
     this._element
       .querySelector(popupCloseBtnSelector)
-      .addEventListener("click", this.close);
+      .addEventListener("click", () => {this.close()});
 
     this._element.addEventListener("click", (event) => {
       if (event.target === event.currentTarget) {
