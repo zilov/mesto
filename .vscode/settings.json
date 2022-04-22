@@ -1,5 +1,8 @@
 {
 
   "workbench.iconTheme": "vs-seti",
-  "workbench.colorTheme": "Community Material Theme"
+  "workbench.colorTheme": "Community Material Theme",
+  "cSpell.words": [
+    "mesto"
+  ]
 }
