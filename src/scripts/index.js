@@ -66,9 +66,9 @@ const cards = new Section({
 cards.renderElements();
 
 
+const cardPopup = new PopupWithImage();
+cardPopup.setEventListeners();
 function handleCardClick(cardImageLink, cardTitle) {
-  const cardPopup = new PopupWithImage();
-  cardPopup.setEventListeners();
   cardPopup.open(cardImageLink, cardTitle);
 }
 
