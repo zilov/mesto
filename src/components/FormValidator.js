@@ -29,7 +29,7 @@ export default class FormValidator {
 
   _addFormValidityListeners() {
     this._formInputs.forEach((input) => {
-      input.addEventListener("input", function (event) {
+      input.addEventListener("input", (event) => {
         const valid = event.target.validity.valid;
   
         if (valid) {
@@ -39,8 +39,8 @@ export default class FormValidator {
           this._showErrMessage(event.target,errMessage);
         }
         this._toggleSubmitBtn(this._formInputs);
-      }.bind(this), false);
-    }); 
+      });
+    });
   };
 
   _showErrMessage(inputElement, errMessage) {

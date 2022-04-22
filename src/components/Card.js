@@ -11,7 +11,9 @@ export default class Card {
     this._likeButton = cardSettings.cardLikeBtnSelector,
     this._likeActive = cardSettings.cardLikeActiveClass,
     this._cardSelector = cardSettings.cardSelector,
-    this._handleCardClick = handleCardClick
+    this._handleCardClick = handleCardClick,
+    this._removeCard = this._removeCard.bind(this),
+    this._toggleLike = this._toggleLike.bind(this)
   }
   
   _toggleLike(event) {
@@ -25,10 +27,10 @@ export default class Card {
   _addCardListeners() {
     this._element
     .querySelector(this._removeButton)
-    .addEventListener("click", this._removeCard.bind(this));
+    .addEventListener("click", this._removeCard);
     this._element
     .querySelector(this._likeButton)
-    .addEventListener("click", this._toggleLike.bind(this));
+    .addEventListener("click", this._toggleLike);
     this._cardImageElement.addEventListener('click', () => {
       console.log(this._link, this._name);
       this._handleCardClick(this._link, this._name);
