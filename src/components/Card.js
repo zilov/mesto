@@ -1,4 +1,4 @@
-export class Card {
+export default class Card {
   constructor(cardData, cardSettings, handleCardClick) {
     this._title = cardData.name,
     this._link = cardData.link,
@@ -30,7 +30,8 @@ export class Card {
     .querySelector(this._likeButton)
     .addEventListener("click", this._toggleLike.bind(this));
     this._cardImageElement.addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
+      console.log(this._link, this._name);
+      this._handleCardClick(this._link, this._name);
     })
   }
   
