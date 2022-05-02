@@ -31,7 +31,13 @@ export const cardAddBtn = profileElement.querySelector('.profile__add-btn');
 export const popupAddForm = document.querySelector('#form-add-new-card');
 export const popupEditForm = document.querySelector('#form-edit-profile-info');
 
-
+export const apiConfig = {
+  url: "https://mesto.nomoreparties.co/v1/cohort-40",
+  headers: {
+    authorization: "ab9ddfe9-f834-464a-b3b1-87a5320ae97c",
+    "content-type": "application/json"
+  },
+}
 
 export const validationSettings = {
   formSelector: ".form",

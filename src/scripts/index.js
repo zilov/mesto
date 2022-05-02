@@ -1,5 +1,6 @@
 import '../pages/index.css'
 
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -22,8 +23,31 @@ import {
   profileEditBtn,
   cardAddBtn,
   popupAddForm,
-  popupEditForm
+  popupEditForm,
+  apiConfig
 } from "../utils/constants.js";
+
+// api
+
+const mestoApi = new Api(apiConfig);
+
+// render cards from api
+const apiCards = mestoApi.getCardsList();
+apiCards.then((data) => {
+  const cards = new Section({
+    items: data,
+    renderer: (item) => {
+      const card = createCard(item);
+      cards.addItem(card);
+    }}, cardsContainerSelector
+  )
+  
+  cards.renderElements();
+})
+
+//  render user page
+
+console.log(mestoApi.getMyUserInfo());
 
 
 // validation
@@ -54,16 +78,6 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData)
 popupEditProfile.setEventListeners();
 
 // cards render
-
-const cards = new Section({
-  items: cardsListInitial,
-  renderer: (item) => {
-    const card = createCard(item);
-    cards.addItem(card);
-  }}, cardsContainerSelector
-)
-
-cards.renderElements();
 
 const cardPopup = new PopupWithImage();
 cardPopup.setEventListeners();
