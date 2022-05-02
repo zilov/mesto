@@ -27,8 +27,22 @@ import {
   apiConfig
 } from "../utils/constants.js";
 
-// api
+// validation
+const formValidators = {};
 
+const enableValidation = (config) => {
+  const forms = Array.from(document.querySelectorAll(config.formSelector));
+  forms.forEach((form) => {
+    const formName = form.id;
+    const validator = new FormValidator(config, form);
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationSettings);
+
+// api
 const mestoApi = new Api(apiConfig);
 
 // render cards from api
@@ -45,32 +59,20 @@ apiCards.then((data) => {
   cards.renderElements();
 })
 
-//  render user page
+//  render user info on page
+const user = new UserInfo(userNameSelector, userStatusSelector);
 
-console.log(mestoApi.getMyUserInfo());
-
-
-// validation
-const formValidators = {};
-
-const enableValidation = (config) => {
-  const forms = Array.from(document.querySelectorAll(config.formSelector));
-  forms.forEach((form) => {
-    const formName = form.id;
-    const validator = new FormValidator(config, form);
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(validationSettings);
+const profile = mestoApi.getProfileInfo();
+profile.then((data) => {
+  user.setUserInfo(data.name, data.about);
+  return
+}).catch('Error in setting profile name')
 
 // edit profile info popup
 
-const user = new UserInfo(userNameSelector, userStatusSelector);
-
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData) => {
   user.setUserInfo(inputData["nameInput"], inputData["statusInput"]);
+  mestoApi.editProfileInfo(inputData["nameInput"], inputData["statusInput"]);
   popupEditProfile.close();
   }
 );

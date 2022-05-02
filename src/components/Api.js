@@ -19,20 +19,24 @@ export default class Api {
     }).then((res) => {return this._checkResponse(res, job)})
   }
 
-  getMyUserInfo() {
+  getProfileInfo() {
     const job = 'Get user'
     return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => {this._checkResponse(res, job)})
+    }).then((res) => {return this._checkResponse(res, job)})
   }
 
-  editMyUserInfo(){
+  editProfileInfo(newName, newAbout){
     const job = 'Edit user info'
     return fetch(`${this._url}/users/me`, {
-      method: "PUSH",
+      method: "PATCH",
       headers: this._headers,
-    }).then((res) => {this._checkResponse(res, job)})
+      body: JSON.stringify({
+        name: newName,
+        about: newAbout
+      })
+    }).then((res) => {return this._checkResponse(res, job)})
   }
 
   getAllUsers() {
