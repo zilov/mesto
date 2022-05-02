@@ -20,7 +20,7 @@ export default class Api {
   }
 
   getProfileInfo() {
-    const job = 'Get user'
+    const job = 'Get user info'
     return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
@@ -39,11 +39,15 @@ export default class Api {
     }).then((res) => {return this._checkResponse(res, job)})
   }
 
-  getAllUsers() {
-    const job = 'Get user'
-    return fetch(`${this._url}/users/`, {
-      method: "GET",
+  addNewCard(cardName, imgLink) {
+    const job = 'Edit user info'
+    return fetch(`${this._url}/users/me`, {
+      method: "POST",
       headers: this._headers,
-    }).then((res) => {this._checkResponse(res, job)})
+      body: JSON.stringify({
+        name: cardName,
+        about: imgLink
+      })
+    }).then((res) => {return this._checkResponse(res, job)})
   }
 }
