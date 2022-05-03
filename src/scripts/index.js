@@ -81,7 +81,7 @@ function handleCardClick(cardImageLink, cardTitle) {
 // card element creation
 
 function createCard(cardInfo, profileId) {
-  return new Card(cardInfo, cardSettings, handleCardClick, profileId).createCard();
+  return new Card(cardInfo, cardSettings, handleCardClick, mestoApi.deleteCard.bind(mestoApi), profileId).createCard();
 }
 
 const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, profile]) => {

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(cardData, cardSettings, handleCardClick, myId) {
+  constructor(cardData, cardSettings, handleCardClick, apiDeleteCard, myId) {
     this._title = cardData.name,
     this._link = cardData.link,
     this._name = cardData.name,
@@ -18,7 +18,9 @@ export default class Card {
 
     this._handleCardClick = handleCardClick,
     this._removeCard = this._removeCard.bind(this),
-    this._toggleLike = this._toggleLike.bind(this)
+    this._toggleLike = this._toggleLike.bind(this),
+
+    this._apiDeleteCard = apiDeleteCard
   }
   
   _toggleLike() {
@@ -27,6 +29,7 @@ export default class Card {
 
   _removeCard() {
     this._element.remove();
+    this._apiDeleteCard(this._id);
   }  
   
   _addCardListeners(myOwn) {

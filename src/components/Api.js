@@ -40,11 +40,19 @@ export default class Api {
   }
 
   addNewCard(cardInfo) {
-    const job = 'Edit user info'
+    const job = 'Edit adding new card'
     return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(cardInfo)
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
+
+  deleteCard(id) {
+    const job = 'Deleting card'
+    return fetch(`${this._url}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
     }).then((res) => {return this._checkResponse(res, job)})
   }
 }
