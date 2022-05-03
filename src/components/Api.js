@@ -39,15 +39,12 @@ export default class Api {
     }).then((res) => {return this._checkResponse(res, job)})
   }
 
-  addNewCard(cardName, imgLink) {
+  addNewCard(cardInfo) {
     const job = 'Edit user info'
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify({
-        name: cardName,
-        about: imgLink
-      })
+      body: JSON.stringify(cardInfo)
     }).then((res) => {return this._checkResponse(res, job)})
   }
 }

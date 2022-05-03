@@ -47,6 +47,8 @@ const mestoApi = new Api(apiConfig);
 
 // render cards from api
 const apiCards = mestoApi.getCardsList();
+
+
 apiCards.then((data) => {
   const cards = new Section({
     items: data,
@@ -55,9 +57,28 @@ apiCards.then((data) => {
       cards.addItem(card);
     }}, cardsContainerSelector
   )
-  
   cards.renderElements();
-})
+  return cards;
+}).then((cards) => {
+  // new card form popup
+  const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
+    const card = createCard(cardInfo);
+    cards.addItem(card);
+    popupNewCard.close();
+    // adding card to server
+    mestoApi.addNewCard(cardInfo);
+  });
+
+  popupNewCard.setEventListeners();
+  return popupNewCard
+
+}).then((popupNewCard) => {
+  // listen to open card add popup
+  cardAddBtn.addEventListener("click", function () {
+    formValidators[popupAddForm.id].resetValidation();
+    popupNewCard.open();
+  })
+}).catch((err) => {console.log(err);})
 
 //  render user info on page
 const user = new UserInfo(userNameSelector, userStatusSelector);
@@ -79,7 +100,7 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData)
 
 popupEditProfile.setEventListeners();
 
-// cards render
+// cards popup 
 
 const cardPopup = new PopupWithImage();
 cardPopup.setEventListeners();
@@ -87,19 +108,11 @@ function handleCardClick(cardImageLink, cardTitle) {
   cardPopup.open(cardImageLink, cardTitle);
 }
 
+// card element creation
+
 function createCard(cardInfo) {
   return new Card(cardInfo, cardSettings, handleCardClick).createCard();
 }
-
-// new card form popup
-
-const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
-  const card = createCard(cardInfo);
-  cards.addItem(card);
-  popupNewCard.close();
-});
-
-popupNewCard.setEventListeners();
 
 
 // buttons listeners
@@ -109,9 +122,4 @@ profileEditBtn.addEventListener("click", function () {
   popupEditNameInput.value = profileName.textContent;
   popupEditStatusInput.value = profileStatus.textContent;
   popupEditProfile.open();
-});
-
-cardAddBtn.addEventListener("click", function () {
-  formValidators[popupAddForm.id].resetValidation();
-  popupNewCard.open();
 });
