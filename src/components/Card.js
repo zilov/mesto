@@ -1,8 +1,12 @@
 export default class Card {
-  constructor(cardData, cardSettings, handleCardClick) {
+  constructor(cardData, cardSettings, handleCardClick, myId) {
     this._title = cardData.name,
     this._link = cardData.link,
     this._name = cardData.name,
+    this._ownerId = cardData.owner._id,
+    this._id = cardData._id,
+
+    this._userId = myId,
 
     this._template = document.querySelector(cardSettings.cardTemplateSelector),
     this._element = this._template.content.querySelector(cardSettings.cardSelector).cloneNode(true),
@@ -25,8 +29,10 @@ export default class Card {
     this._element.remove();
   }  
   
-  _addCardListeners() {
-    this._removeButton.addEventListener("click", this._removeCard);
+  _addCardListeners(myOwn) {
+    if (myOwn) {
+      this._removeButton.addEventListener("click", this._removeCard);
+    }
     this._likeButton.addEventListener("click", this._toggleLike);
     this._cardImageElement.addEventListener('click', () => {
       this._handleCardClick(this._link, this._name);
@@ -37,8 +43,14 @@ export default class Card {
     this._cardImageElement.alt = this._name;
     this._cardTitleElement.textContent = this._title;
     this._cardImageElement.src = this._link;
+
+    let myOwn = true;
+    if (this._ownerId !== this._userId) {
+      this._removeButton.remove();
+      myOwn = false;
+    }
     
-    this._addCardListeners();
+    this._addCardListeners(myOwn);
   
     return this._element;
   }

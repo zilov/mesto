@@ -49,44 +49,14 @@ const mestoApi = new Api(apiConfig);
 const apiCards = mestoApi.getCardsList();
 
 
-apiCards.then((data) => {
-  const cards = new Section({
-    items: data,
-    renderer: (item) => {
-      const card = createCard(item);
-      cards.addItem(card);
-    }}, cardsContainerSelector
-  )
-  cards.renderElements();
-  return cards;
-}).then((cards) => {
-  // new card form popup
-  const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
-    const card = createCard(cardInfo);
-    cards.addItem(card);
-    popupNewCard.close();
-    // adding card to server
-    mestoApi.addNewCard(cardInfo);
-  });
-
-  popupNewCard.setEventListeners();
-  return popupNewCard
-
-}).then((popupNewCard) => {
-  // listen to open card add popup
-  cardAddBtn.addEventListener("click", function () {
-    formValidators[popupAddForm.id].resetValidation();
-    popupNewCard.open();
-  })
-}).catch((err) => {console.log(err);})
+apiCards.then((data) => {return data});
 
 //  render user info on page
 const user = new UserInfo(userNameSelector, userStatusSelector);
 
-const profile = mestoApi.getProfileInfo();
+const profile = mestoApi.getProfileInfo().then((profileInfo) => {return profileInfo});
 profile.then((data) => {
   user.setUserInfo(data.name, data.about);
-  return
 }).catch('Error in setting profile name')
 
 // edit profile info popup
@@ -110,9 +80,45 @@ function handleCardClick(cardImageLink, cardTitle) {
 
 // card element creation
 
-function createCard(cardInfo) {
-  return new Card(cardInfo, cardSettings, handleCardClick).createCard();
+function createCard(cardInfo, profileId) {
+  return new Card(cardInfo, cardSettings, handleCardClick, profileId).createCard();
 }
+
+const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, profile]) => {
+  console.log(profile._id);
+  const cards = new Section({
+    items: cardsList,
+    renderer: (item) => {
+      console.log(profile._id);
+      const card = createCard(item, profile._id);
+      cards.addItem(card);
+  }}, cardsContainerSelector)
+  cards.renderElements();
+  return cards;
+})
+
+// add new card popup
+renderInitialCards
+  .then((cards) => {
+    // new card form popup
+    const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
+      const card = createCard(cardInfo);
+      cards.addItem(card);
+      popupNewCard.close();
+      // adding card to server
+      mestoApi.addNewCard(cardInfo);
+    });
+    popupNewCard.setEventListeners();
+    return popupNewCard
+    })
+  .then((popupNewCard) => {
+    // listen to open card add popup
+    cardAddBtn.addEventListener("click", function () {
+      formValidators[popupAddForm.id].resetValidation();
+      popupNewCard.open();
+      })
+    })
+  .catch((err) => {console.log(err);})
 
 
 // buttons listeners
