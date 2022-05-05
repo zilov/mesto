@@ -5,7 +5,7 @@
   position: relative;
 
   width: 282px;
-  min-height: 322px;
+  min-height: 140px;
 
   background-color: #fff;
   color: #000;
@@ -15,6 +15,6 @@
 @media screen and (min-width: 1024px) {
   .popup__window {
     width: 430px;
-    min-height: 330px;
+    min-height: 181px;
   }
 }
