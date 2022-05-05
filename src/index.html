@@ -110,12 +110,34 @@
           </div>
         </div>
 
-        <div id="popup-delete-card" class="popup popup_type_delete popup_active">
+        <div id="popup-delete-card" class="popup popup_type_delete">
           <div class="popup__window">
             <button type="button" class="popup__exit-btn"></button>
             <h2 class="popup__title">Вы уверены?</h2>
             <form class="form" id="form-delete-card" novalidate>
               <button type="submit" class="form__submit-btn">Да</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="popup-change-profile-photo" class="popup popup_active">
+          <div class="popup__window">
+            <button type="button" class="popup__exit-btn"></button>
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="form" id="form-update-photo" novalidate>
+              <div class="form__inputs-box">
+                <section class="form__section">
+                  <input
+                    type="url"
+                    id="link"
+                    class="form__input"
+                    placeholder="Ссылка на картинку"
+                    required
+                  />
+                  <span class="form__input-err" id="name-Error"></span>
+                </section>
+              </div>
+              <button type="submit" class="form__submit-btn">Сохранить</button>
             </form>
           </div>
         </div>

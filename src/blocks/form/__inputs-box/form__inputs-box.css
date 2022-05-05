@@ -1,6 +1,6 @@
 .form__inputs-box {
   padding: 0;
-  margin: 75px 0 0;
+  margin: 75px 0 15px;
   display: flex;
   flex-direction: column;
 }
