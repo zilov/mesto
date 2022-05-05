@@ -80,33 +80,39 @@ function handleCardClick(cardImageLink, cardTitle) {
 
 // card element creation
 
-function createCard(cardInfo, profileId) {
-  return new Card(cardInfo, cardSettings, handleCardClick, mestoApi.deleteCard.bind(mestoApi), profileId).createCard();
+function createCard(cardInfo, myOwn) {
+  return new Card(cardInfo, cardSettings, handleCardClick, mestoApi.deleteCard.bind(mestoApi), myOwn).createCard();
 }
 
 const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, profile]) => {
-  console.log(profile._id);
   const cards = new Section({
     items: cardsList,
     renderer: (item) => {
-      console.log(profile._id);
-      const card = createCard(item, profile._id);
-      cards.addItem(card);
+      if (profile._id !== item.owner._id) {
+        const card = createCard(item, false);
+        cards.addItem(card, true  );
+      } else {
+        const card = createCard(item, true);
+        cards.addItem(card, true);
+      }
   }}, cardsContainerSelector)
   cards.renderElements();
-  return cards;
-})
+  return [cards, profile];
+}).catch((err) => {console.log(`Render initial card ${err}`)})
 
 // add new card popup
 renderInitialCards
-  .then((cards) => {
+  .then(([cards, profile]) => {
+    console.log(profile._id);
     // new card form popup
     const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
-      const card = createCard(cardInfo);
-      cards.addItem(card);
-      popupNewCard.close();
       // adding card to server
-      mestoApi.addNewCard(cardInfo);
+      mestoApi.addNewCard(cardInfo).then((cardData) => {
+        // use api card data (with id) to add card to the layout
+        const card = createCard(cardData, true);
+        cards.addItem(card);
+        popupNewCard.close();
+      }).catch((err) => {console.log(`Error in new card creation ${err}`);})
     });
     popupNewCard.setEventListeners();
     return popupNewCard
