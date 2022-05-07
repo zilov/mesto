@@ -15,11 +15,9 @@
 
       <main id="main">
         <section class="profile">
-          <img
-            src=<%=require("./images/profile_photo.jpg")%>
-            alt="изображение профиля"
-            class="profile__photo"
-          />
+          <div class="profile__photo" alt="изображение профиля">
+            <button class="profile__edit-photo-btn"></button>
+          </div>
 
           <div class="profile__name-status-box">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -120,7 +118,7 @@
           </div>
         </div>
 
-        <div id="popup-change-profile-photo" class="popup popup_active">
+        <div id="popup-change-profile-photo" class="popup">
           <div class="popup__window">
             <button type="button" class="popup__exit-btn"></button>
             <h2 class="popup__title">Обновить аватар</h2>
