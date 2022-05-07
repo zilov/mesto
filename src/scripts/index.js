@@ -14,16 +14,20 @@ import {
   cardsContainerSelector,
   popupAddCardSelector,
   popupEditProfileSelector,
+  popupEditPhotoSelector,
   userNameSelector,
   userStatusSelector,
+  userPhotoSelector,
   profileName,
   profileStatus,
   popupEditNameInput,
   popupEditStatusInput,
   profileEditBtn,
   cardAddBtn,
+  profileChangePhotoBtn,
   popupAddForm,
   popupEditForm,
+  popupChangePhotoForm,
   apiConfig
 } from "../utils/constants.js";
 
@@ -52,11 +56,12 @@ const apiCards = mestoApi.getCardsList();
 apiCards.then((data) => {return data});
 
 //  render user info on page
-const user = new UserInfo(userNameSelector, userStatusSelector);
+const user = new UserInfo(userNameSelector, userStatusSelector, userPhotoSelector);
 
 const profile = mestoApi.getProfileInfo().then((profileInfo) => {return profileInfo});
 profile.then((data) => {
   user.setUserInfo(data.name, data.about);
+  user.changePhoto(data.avatar);
 }).catch('Error in setting profile name')
 
 // edit profile info popup
@@ -69,6 +74,18 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData)
 );
 
 popupEditProfile.setEventListeners();
+
+
+// edit profile-photo popup
+
+const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, (inputData) => {
+  user.changePhoto(inputData["link"]);
+  console.log(inputData["link"]);
+  mestoApi.editProfilePhoto(inputData["link"]);
+  popupChangePhoto.close();
+});
+
+popupChangePhoto.setEventListeners();
 
 // cards popup 
 
@@ -135,3 +152,8 @@ profileEditBtn.addEventListener("click", function () {
   popupEditStatusInput.value = profileStatus.textContent;
   popupEditProfile.open();
 });
+
+profileChangePhotoBtn.addEventListener("click", () => {
+  formValidators[popupChangePhotoForm.id].resetValidation();
+  popupChangePhoto.open();
+})

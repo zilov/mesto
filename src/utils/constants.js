@@ -11,12 +11,14 @@ export const cardTitleSelector = ".card__title";
 
 export const popupAddCardSelector = "#popup-add-card";
 export const popupEditProfileSelector = "#popup-edit-profile";
+export const popupEditPhotoSelector = "#popup-change-profile-photo";
 
 export const formInputSelector = ".form__input";
 export const formSelector = ".form";
 
 export const userNameSelector = ".profile__name";
 export const userStatusSelector = ".profile__status";
+export const userPhotoSelector = ".profile__photo";
 
 const profileElement = document.querySelector('.profile');
 const popupEditElement = document.querySelector('#popup-edit-profile')
@@ -27,9 +29,11 @@ export const popupEditStatusInput = popupEditElement.querySelector("#statusInput
 
 export const profileEditBtn = profileElement.querySelector('.profile__edit-btn');
 export const cardAddBtn = profileElement.querySelector('.profile__add-btn');
+export const profileChangePhotoBtn = profileElement.querySelector('.profile__edit-photo-btn');
 
 export const popupAddForm = document.querySelector('#form-add-new-card');
 export const popupEditForm = document.querySelector('#form-edit-profile-info');
+export const popupChangePhotoForm = document.querySelector('#form-update-photo');
 
 export const apiConfig = {
   url: "https://mesto.nomoreparties.co/v1/cohort-40",

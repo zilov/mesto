@@ -39,6 +39,17 @@ export default class Api {
     }).then((res) => {return this._checkResponse(res, job)})
   }
 
+  editProfilePhoto(photoUrl) {
+    const job = 'Edit user photo'
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: photoUrl
+      })
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
+
   addNewCard(cardInfo) {
     const job = 'Edit adding new card'
     return fetch(`${this._url}/cards`, {

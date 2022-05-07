@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor(nameSelector, infoSelector) {
+  constructor(nameSelector, infoSelector, photoSelector) {
     this._name = document.querySelector(nameSelector),
-    this._info = document.querySelector(infoSelector)
+    this._info = document.querySelector(infoSelector),
+    this._photo = document.querySelector(photoSelector)
   }
 
   getUserInfo() {
@@ -11,5 +12,10 @@ export default class UserInfo {
   setUserInfo(newName, newInfo) {
     this._name.textContent = newName,
     this._info.textContent = newInfo
+  }
+
+  changePhoto(photoUrl) {
+    console.log(photoUrl, 'user');
+    this._photo.style.backgroundImage = `url('${photoUrl}')`;
   }
 }
