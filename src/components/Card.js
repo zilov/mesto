@@ -1,10 +1,15 @@
 export default class Card {
-  constructor(cardData, cardSettings, handleCardClick, apiDeleteCard, myOwn) {
+  constructor(cardData, cardSettings, handleCardClick, api, userInfo) {
+    this._cardData = cardData,
     this._title = cardData.name,
     this._link = cardData.link,
     this._name = cardData.name,
+    this._likes = cardData.likes,
     this._id = cardData._id,
-    this._myOwn = myOwn,
+    this._ownerId = cardData.owner._id,
+
+    this._api = api,
+    this._user = userInfo,
 
     this._template = document.querySelector(cardSettings.cardTemplateSelector),
     this._element = this._template.content.querySelector(cardSettings.cardSelector).cloneNode(true),
@@ -14,24 +19,53 @@ export default class Card {
     this._likeButton = this._element.querySelector(cardSettings.cardLikeBtnSelector),
     this._likeActiveClass = cardSettings.cardLikeActiveClass,
 
+    this._likesCounter = this._element.querySelector(cardSettings.cardLikesCounterSelector);
+
     this._handleCardClick = handleCardClick,
     this._removeCard = this._removeCard.bind(this),
-    this._toggleLike = this._toggleLike.bind(this),
-
-    this._apiDeleteCard = apiDeleteCard
+    this._toggleLike = this._toggleLike.bind(this)
   }
   
   _toggleLike() {
-    this._likeButton.classList.toggle(this._likeActiveClass);
+    this._handleLike().then((cardInfo) => {
+      this._cardData = cardInfo;
+      console.log('test', this._cardData);
+      this._likesCounter.textContent = cardInfo.likes.length;
+      this._likeButton.classList.toggle(this._likeActiveClass);
+    }).catch((err) => {`Error in toggle like ${err}`})
+  }
+
+  _handleLike() {
+    if (this._isLiked()) {
+      return this._api.deleteCardLike(this._id); 
+    } else {
+      return this._api.addCardLike(this._id);
+    }
+  }
+
+
+  _isLiked() {
+    if (this._cardData.likes.some(user => user._id === this._user._id)) {
+      return true;
+    }
+      return false;
+  }
+
+  _isMine() {
+    if (this._ownerId === this._user._id) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   _removeCard() {
     this._element.remove();
-    this._apiDeleteCard(this._id);
+    this._api.deleteCard(this._id);
   }  
   
   _addCardListeners() {
-    if (this._myOwn) {
+    if (this._isMine()) {
       this._removeButton.addEventListener("click", this._removeCard);
     }
     this._likeButton.addEventListener("click", this._toggleLike);
@@ -44,9 +78,14 @@ export default class Card {
     this._cardImageElement.alt = this._name;
     this._cardTitleElement.textContent = this._title;
     this._cardImageElement.src = this._link;
+    this._likesCounter.textContent = this._likes.length;
 
-    if (!this._myOwn) {
+    if (!this._isMine()) {
       this._removeButton.remove();
+    }
+
+    if (this._isLiked(this._cardData)) {
+      this._likeButton.classList.toggle(this._likeActiveClass);
     }
     
     this._addCardListeners();

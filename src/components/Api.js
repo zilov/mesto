@@ -66,4 +66,20 @@ export default class Api {
       headers: this._headers,
     }).then((res) => {return this._checkResponse(res, job)})
   }
+
+  addCardLike(id) {
+    const job = 'Adding like to card'
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
+
+  deleteCardLike(id) {
+    const job = 'Deleting like to card'
+    return fetch(`${this._url}/cards/${id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
 }

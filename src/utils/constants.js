@@ -60,6 +60,7 @@ export const cardSettings = {
   cardRemoveBtnSelector: ".card__remove-btn",
   cardLikeBtnSelector: ".card__like-btn",
   cardLikeActiveClass: "card__like-btn_type_active",
+  cardLikesCounterSelector: ".card__like-counter"
 };
 
 export const cardsListInitial = [

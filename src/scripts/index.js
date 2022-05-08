@@ -97,21 +97,16 @@ function handleCardClick(cardImageLink, cardTitle) {
 
 // card element creation
 
-function createCard(cardInfo, myOwn) {
-  return new Card(cardInfo, cardSettings, handleCardClick, mestoApi.deleteCard.bind(mestoApi), myOwn).createCard();
+function createCard(cardInfo, profileInfo) {
+  return new Card(cardInfo, cardSettings, handleCardClick, mestoApi, profileInfo).createCard();
 }
 
 const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, profile]) => {
   const cards = new Section({
     items: cardsList,
     renderer: (item) => {
-      if (profile._id !== item.owner._id) {
-        const card = createCard(item, false);
-        cards.addItem(card, true  );
-      } else {
-        const card = createCard(item, true);
-        cards.addItem(card, true);
-      }
+      const card = createCard(item, profile);
+      cards.addItem(card, true);
   }}, cardsContainerSelector)
   cards.renderElements();
   return [cards, profile];
@@ -126,7 +121,7 @@ renderInitialCards
       // adding card to server
       mestoApi.addNewCard(cardInfo).then((cardData) => {
         // use api card data (with id) to add card to the layout
-        const card = createCard(cardData, true);
+        const card = createCard(cardData, profile);
         cards.addItem(card);
         popupNewCard.close();
       }).catch((err) => {console.log(`Error in new card creation ${err}`);})
