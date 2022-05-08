@@ -12,6 +12,7 @@ export const cardTitleSelector = ".card__title";
 export const popupAddCardSelector = "#popup-add-card";
 export const popupEditProfileSelector = "#popup-edit-profile";
 export const popupEditPhotoSelector = "#popup-change-profile-photo";
+export const popupRemoveCardSelector = "#popup-delete-card";
 
 export const formInputSelector = ".form__input";
 export const formSelector = ".form";
@@ -60,7 +61,8 @@ export const cardSettings = {
   cardRemoveBtnSelector: ".card__remove-btn",
   cardLikeBtnSelector: ".card__like-btn",
   cardLikeActiveClass: "card__like-btn_type_active",
-  cardLikesCounterSelector: ".card__like-counter"
+  cardLikesCounterSelector: ".card__like-counter",
+  cardRemovePopupSelector: "#popup-delete-card"
 };
 
 export const cardsListInitial = [

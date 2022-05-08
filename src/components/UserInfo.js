@@ -15,7 +15,6 @@ export default class UserInfo {
   }
 
   changePhoto(photoUrl) {
-    console.log(photoUrl, 'user');
     this._photo.style.backgroundImage = `url('${photoUrl}')`;
   }
 }

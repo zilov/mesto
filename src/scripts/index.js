@@ -2,6 +2,7 @@ import '../pages/index.css'
 
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
+import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
@@ -15,6 +16,7 @@ import {
   popupAddCardSelector,
   popupEditProfileSelector,
   popupEditPhotoSelector,
+  popupRemoveCardSelector,
   userNameSelector,
   userStatusSelector,
   userPhotoSelector,
@@ -78,9 +80,9 @@ popupEditProfile.setEventListeners();
 
 // edit profile-photo popup
 
-const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, (inputData) => {
+const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, () => {
+  const inputData = popupChangePhoto._getInputValues();
   user.changePhoto(inputData["link"]);
-  console.log(inputData["link"]);
   mestoApi.editProfilePhoto(inputData["link"]);
   popupChangePhoto.close();
 });
@@ -95,10 +97,25 @@ function handleCardClick(cardImageLink, cardTitle) {
   cardPopup.open(cardImageLink, cardTitle);
 }
 
+// card remove popup
+
+const cardRemovePopup = new PopupWithForm(popupRemoveCardSelector, () => {
+  cardRemovePopup.close();
+});
+
+cardRemovePopup.setEventListeners();
+
+console.log(cardRemovePopup);
+
+const handleRemoveClick = () => {
+  cardRemovePopup.open();
+}
+
+
 // card element creation
 
 function createCard(cardInfo, profileInfo) {
-  return new Card(cardInfo, cardSettings, handleCardClick, mestoApi, profileInfo).createCard();
+  return new Card(cardInfo, cardSettings, handleCardClick, handleRemoveClick, cardRemovePopup, mestoApi, profileInfo).createCard();
 }
 
 const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, profile]) => {
@@ -115,10 +132,10 @@ const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, pr
 // add new card popup
 renderInitialCards
   .then(([cards, profile]) => {
-    console.log(profile._id);
     // new card form popup
-    const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
+    const popupNewCard = new PopupWithForm(popupAddCardSelector, () => {
       // adding card to server
+      const cardInfo = popupNewCard._getInputValues();
       mestoApi.addNewCard(cardInfo).then((cardData) => {
         // use api card data (with id) to add card to the layout
         const card = createCard(cardData, profile);

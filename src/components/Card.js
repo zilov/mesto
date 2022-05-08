@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(cardData, cardSettings, handleCardClick, api, userInfo) {
+  constructor(cardData, cardSettings, handleCardClick, handleRemoveClick, removePopup, api, userInfo) {
     this._cardData = cardData,
     this._title = cardData.name,
     this._link = cardData.link,
@@ -19,17 +19,19 @@ export default class Card {
     this._likeButton = this._element.querySelector(cardSettings.cardLikeBtnSelector),
     this._likeActiveClass = cardSettings.cardLikeActiveClass,
 
-    this._likesCounter = this._element.querySelector(cardSettings.cardLikesCounterSelector);
+    this._likesCounter = this._element.querySelector(cardSettings.cardLikesCounterSelector),
 
     this._handleCardClick = handleCardClick,
+    this._removePopup = removePopup._element,
     this._removeCard = this._removeCard.bind(this),
-    this._toggleLike = this._toggleLike.bind(this)
+    this._toggleLike = this._toggleLike.bind(this),
+
+    this._handleRemoveClick = handleRemoveClick
   }
   
   _toggleLike() {
     this._handleLike().then((cardInfo) => {
       this._cardData = cardInfo;
-      console.log('test', this._cardData);
       this._likesCounter.textContent = cardInfo.likes.length;
       this._likeButton.classList.toggle(this._likeActiveClass);
     }).catch((err) => {`Error in toggle like ${err}`})
@@ -66,7 +68,8 @@ export default class Card {
   
   _addCardListeners() {
     if (this._isMine()) {
-      this._removeButton.addEventListener("click", this._removeCard);
+      this._removeButton.addEventListener("click", this._handleRemoveClick);
+      this._removePopup.addEventListener("submit", this._removeCard);
     }
     this._likeButton.addEventListener("click", this._toggleLike);
     this._cardImageElement.addEventListener('click', () => {

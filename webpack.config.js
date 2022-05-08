@@ -10,7 +10,7 @@ module.exports = {
         publicPath: '',
     clean: true,
   },
-  mode: "development",
+  mode: "production",
   devServer: {
     static: path.join(__dirname, './dist'),
     compress: true,
