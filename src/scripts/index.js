@@ -5,6 +5,7 @@ import Card from "../components/Card.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
@@ -69,9 +70,14 @@ profile.then((data) => {
 // edit profile info popup
 
 const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData) => {
-  user.setUserInfo(inputData["nameInput"], inputData["statusInput"]);
-  mestoApi.editProfileInfo(inputData["nameInput"], inputData["statusInput"]);
-  popupEditProfile.close();
+  mestoApi.editProfileInfo(inputData["nameInput"], inputData["statusInput"])
+    .then((profileInfo) => {
+      user.setUserInfo(profileInfo["name"], profileInfo["about"]);
+      popupEditProfile.close();
+    })
+    .catch(
+      (err) => {console.log(`Error in changing profile info ${err}`)}
+      );
   }
 );
 
@@ -81,9 +87,14 @@ popupEditProfile.setEventListeners();
 // edit profile-photo popup
 
 const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, (inputData) => {
-  user.changePhoto(inputData["link"]);
-  mestoApi.editProfilePhoto(inputData["link"]);
-  popupChangePhoto.close();
+  mestoApi.editProfilePhoto(inputData["link"])
+    .then((userInfo) => {
+      user.changePhoto(userInfo["avatar"]);
+      popupChangePhoto.close();
+    })
+    .catch(
+      (err) => {console.log(`Error in changing profile photo ${err}`);});
+  
 });
 
 popupChangePhoto.setEventListeners();
@@ -98,7 +109,7 @@ function handleCardClick(cardImageLink, cardTitle) {
 
 // card remove popup
 
-const cardRemovePopup = new PopupWithForm(popupRemoveCardSelector, () => {
+const cardRemovePopup = new PopupWithConfirm(popupRemoveCardSelector, () => {
   cardRemovePopup.close();
 });
 
