@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(cardData, cardSettings, handleCardClick, handleRemoveClick, removePopup, api, userInfo) {
+  constructor(cardData, cardSettings, handleCardClick, handleRemoveClick, api, userInfo) {
     this._cardData = cardData,
     this._title = cardData.name,
     this._link = cardData.link,
@@ -20,12 +20,10 @@ export default class Card {
     this._likeActiveClass = cardSettings.cardLikeActiveClass,
 
     this._likesCounter = this._element.querySelector(cardSettings.cardLikesCounterSelector),
-
-    this._handleCardClick = handleCardClick,
-    this._removePopup = removePopup._element,
-    this._removeCard = this._removeCard.bind(this),
+    this.removeCard = this.removeCard.bind(this),
     this._toggleLike = this._toggleLike.bind(this),
 
+    this._handleCardClick = handleCardClick,
     this._handleRemoveClick = handleRemoveClick
   }
   
@@ -36,6 +34,7 @@ export default class Card {
       this._likeButton.classList.toggle(this._likeActiveClass);
     }).catch((err) => {`Error in toggle like ${err}`})
   }
+
 
   _handleLike() {
     if (this._isLiked()) {
@@ -53,6 +52,7 @@ export default class Card {
       return false;
   }
 
+
   _isMine() {
     if (this._ownerId === this._user._id) {
       return true;
@@ -61,21 +61,24 @@ export default class Card {
     }
   }
 
-  _removeCard() {
-    this._element.remove();
-    this._api.deleteCard(this._id);
-  }  
+
+  removeCard() {
+    this._api.deleteCard(this._id)
+      .then(() => {this._element.remove()})
+      .catch((err) => {console.log(`Error in removing card: ${err}`)});
+  }
+
   
   _addCardListeners() {
     if (this._isMine()) {
-      this._removeButton.addEventListener("click", this._handleRemoveClick);
-      this._removePopup.addEventListener("submit", this._removeCard);
+      this._removeButton.addEventListener("click", () => {this._handleRemoveClick(this)});
     }
     this._likeButton.addEventListener("click", this._toggleLike);
     this._cardImageElement.addEventListener('click', () => {
       this._handleCardClick(this._link, this._name);
     })
   }
+
   
   createCard() {
     this._cardImageElement.alt = this._name;

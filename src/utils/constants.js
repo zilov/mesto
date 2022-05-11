@@ -13,6 +13,7 @@ export const popupAddCardSelector = "#popup-add-card";
 export const popupEditProfileSelector = "#popup-edit-profile";
 export const popupEditPhotoSelector = "#popup-change-profile-photo";
 export const popupRemoveCardSelector = "#popup-delete-card";
+export const popupRemoveConfirmBtn = ".form__submit-btn";
 
 export const formInputSelector = ".form__input";
 export const formSelector = ".form";

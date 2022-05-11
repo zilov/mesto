@@ -103,21 +103,18 @@ popupChangePhoto.setEventListeners();
 
 const cardPopup = new PopupWithImage();
 cardPopup.setEventListeners();
+
 function handleCardClick(cardImageLink, cardTitle) {
   cardPopup.open(cardImageLink, cardTitle);
 }
 
 // card remove popup
 
-const cardRemovePopup = new PopupWithConfirm(popupRemoveCardSelector, () => {
-  cardRemovePopup.close();
-});
-
+const cardRemovePopup = new PopupWithConfirm(popupRemoveCardSelector);
 cardRemovePopup.setEventListeners();
 
-console.log(cardRemovePopup);
-
-const handleRemoveClick = () => {
+function handleRemoveClick(card) {
+  cardRemovePopup.getCard(card);
   cardRemovePopup.open();
 }
 
@@ -125,7 +122,7 @@ const handleRemoveClick = () => {
 // card element creation
 
 function createCard(cardInfo, profileInfo) {
-  return new Card(cardInfo, cardSettings, handleCardClick, handleRemoveClick, cardRemovePopup, mestoApi, profileInfo).createCard();
+  return new Card(cardInfo, cardSettings, handleCardClick, handleRemoveClick, mestoApi, profileInfo).createCard();
 }
 
 const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, profile]) => {
