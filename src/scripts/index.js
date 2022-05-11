@@ -80,8 +80,7 @@ popupEditProfile.setEventListeners();
 
 // edit profile-photo popup
 
-const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, () => {
-  const inputData = popupChangePhoto._getInputValues();
+const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, (inputData) => {
   user.changePhoto(inputData["link"]);
   mestoApi.editProfilePhoto(inputData["link"]);
   popupChangePhoto.close();
@@ -133,9 +132,8 @@ const renderInitialCards = Promise.all([apiCards, profile]).then(([cardsList, pr
 renderInitialCards
   .then(([cards, profile]) => {
     // new card form popup
-    const popupNewCard = new PopupWithForm(popupAddCardSelector, () => {
+    const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
       // adding card to server
-      const cardInfo = popupNewCard._getInputValues();
       mestoApi.addNewCard(cardInfo).then((cardData) => {
         // use api card data (with id) to add card to the layout
         const card = createCard(cardData, profile);
