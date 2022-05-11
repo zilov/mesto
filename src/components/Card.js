@@ -63,7 +63,7 @@ export default class Card {
 
 
   removeCard() {
-    this._api.deleteCard(this._id)
+    return this._api.deleteCard(this._id)
       .then(() => {this._element.remove()})
       .catch((err) => {console.log(`Error in removing card: ${err}`)});
   }

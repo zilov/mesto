@@ -36,6 +36,7 @@ export const profileChangePhotoBtn = profileElement.querySelector('.profile__edi
 export const popupAddForm = document.querySelector('#form-add-new-card');
 export const popupEditForm = document.querySelector('#form-edit-profile-info');
 export const popupChangePhotoForm = document.querySelector('#form-update-photo');
+export const popupSubmitBtnSelector = ".form__submit-btn";
 
 export const apiConfig = {
   url: "https://mesto.nomoreparties.co/v1/cohort-40",

@@ -77,7 +77,8 @@ const popupEditProfile = new PopupWithForm(popupEditProfileSelector, (inputData)
     })
     .catch(
       (err) => {console.log(`Error in changing profile info ${err}`)}
-      );
+      )
+    .finally(() => {popupChangePhoto.loading(false)});
   }
 );
 
@@ -87,14 +88,13 @@ popupEditProfile.setEventListeners();
 // edit profile-photo popup
 
 const popupChangePhoto = new PopupWithForm(popupEditPhotoSelector, (inputData) => {
-  mestoApi.editProfilePhoto(inputData["link"])
+  mestoApi.editProfilePhoto(inputData["linkToAvatar"])
     .then((userInfo) => {
       user.changePhoto(userInfo["avatar"]);
       popupChangePhoto.close();
     })
-    .catch(
-      (err) => {console.log(`Error in changing profile photo ${err}`);});
-  
+    .catch((err) => {console.log(`Error in changing profile photo ${err}`)})
+    .finally(() => {popupChangePhoto.loading(false)});
 });
 
 popupChangePhoto.setEventListeners();
@@ -142,12 +142,15 @@ renderInitialCards
     // new card form popup
     const popupNewCard = new PopupWithForm(popupAddCardSelector, (cardInfo) => {
       // adding card to server
-      mestoApi.addNewCard(cardInfo).then((cardData) => {
+      mestoApi.addNewCard(cardInfo)
+        .then((cardData) => {
         // use api card data (with id) to add card to the layout
-        const card = createCard(cardData, profile);
-        cards.addItem(card);
-        popupNewCard.close();
-      }).catch((err) => {console.log(`Error in new card creation ${err}`);})
+          const card = createCard(cardData, profile);
+          cards.addItem(card);
+          popupNewCard.close();
+        })
+        .catch((err) => {console.log(`Error in new card creation ${err}`)})
+        .finally((popupNewCard.loading(false)));
     });
     popupNewCard.setEventListeners();
     return popupNewCard
